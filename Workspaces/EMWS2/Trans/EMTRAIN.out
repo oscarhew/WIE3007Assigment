@@ -1,0 +1,29 @@
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+Variable Summary
+
+          Measurement    Frequency
+ Role        Level         Count
+
+INPUT      INTERVAL          11   
+INPUT      NOMINAL            2   
+TARGET     INTERVAL           1   
+ 
+                                                                                                                                                                                                                                                                
+ 
+Computed Transformations
+(maximum 500 observations printed)
+
+                                  Input
+Input Name              Role      Level      Name                          Level      Formula
+
+alcohol                 INPUT    INTERVAL    LG10_alcohol                 INTERVAL    log10(alcohol  + 1)             
+chlorides               INPUT    INTERVAL    LG10_chlorides               INTERVAL    log10(chlorides  + 1)           
+citric_acid             INPUT    INTERVAL    LG10_citric_acid             INTERVAL    log10(citric_acid  + 1)         
+density                 INPUT    INTERVAL    LG10_density                 INTERVAL    log10(density  + 1)             
+fixed_acidity           INPUT    INTERVAL    LG10_fixed_acidity           INTERVAL    log10(fixed_acidity  + 1)       
+free_sulfur_dioxide     INPUT    INTERVAL    LG10_free_sulfur_dioxide     INTERVAL    log10(free_sulfur_dioxide  + 1) 
+total_sulfur_dioxide    INPUT    INTERVAL    LG10_total_sulfur_dioxide    INTERVAL    log10(total_sulfur_dioxide  + 1)
+volatile_acidity        INPUT    INTERVAL    LG10_volatile_acidity        INTERVAL    log10(volatile_acidity  + 1)    

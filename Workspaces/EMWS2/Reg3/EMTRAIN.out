@@ -1,0 +1,444 @@
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+Variable Summary
+
+          Measurement    Frequency
+ Role        Level         Count
+
+INPUT      INTERVAL          11   
+INPUT      NOMINAL            2   
+TARGET     INTERVAL           1   
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+Predicted and decision variables
+
+Type         Variable           Label
+
+TARGET       quality                        
+PREDICTED    P_quality    Predicted: quality
+RESIDUAL     R_quality    Residual: quality 
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+
+The DMREG Procedure
+
+               Model Information
+
+Training Data Set             WORK.EM_DMREG.VIEW
+DMDB Catalog                  WORK.REG3_DMDB    
+Target Variable               quality           
+Target Measurement Level      Interval          
+Error                         Normal            
+Link Function                 Identity          
+Number of Model Parameters    18                
+Number of Observations        5196              
+
+
+
+
+Stepwise Selection Procedure
+
+
+Step 0: Intercept entered.
+
+
+                             Analysis of Variance
+ 
+                                   Sum of
+Source                 DF         Squares     Mean Square    F Value    Pr > F
+
+Model                   0               0               .        .       .    
+Error                5195     3990.135489        0.768072                     
+Corrected Total      5195     3990.135489                                     
+
+
+              Model Fit Statistics
+
+R-Square        0.0000     Adj R-Sq        0.0000
+AIC         -1370.0761     BIC         -1368.8310
+SBC         -1363.5204     C(p)         2146.0927
+
+
+
+
+                      Analysis of Maximum Likelihood Estimates
+ 
+                                                     Standard
+Parameter                          DF    Estimate       Error    t Value    Pr > |t|
+
+Intercept                           1      5.8099      0.0122     477.86      <.0001
+
+
+Step 1: Effect LG10_alcohol entered.
+
+
+                             Analysis of Variance
+ 
+                                   Sum of
+Source                 DF         Squares     Mean Square    F Value    Pr > F
+
+Model                   1      779.104762      779.104762    1260.24    <.0001
+Error                5194     3211.030727        0.618219                     
+Corrected Total      5195     3990.135489                                     
+
+
+              Model Fit Statistics
+
+R-Square        0.1953     Adj R-Sq        0.1951
+AIC         -2496.8198     BIC         -2495.3302
+SBC         -2483.7085     C(p)          714.8830
+
+
+                     Type 3 Analysis of Effects
+ 
+                                         Sum of
+Effect                         DF       Squares    F Value    Pr > F
+
+LG10_alcohol                    1      779.1048    1260.24    <.0001
+
+
+                      Analysis of Maximum Likelihood Estimates
+ 
+                                                     Standard
+Parameter                          DF    Estimate       Error    t Value    Pr > |t|
+
+Intercept                           1     -3.5038      0.2626     -13.34      <.0001
+LG10_alcohol                        1      8.8023      0.2480      35.50      <.0001
+
+
+Step 2: Effect LG10_volatile_acidity entered.
+
+
+                             Analysis of Variance
+ 
+                                   Sum of
+Source                 DF         Squares     Mean Square    F Value    Pr > F
+
+Model                   2     1018.278256      509.139128     889.67    <.0001
+Error                5193     2971.857233        0.572281                     
+Corrected Total      5195     3990.135489                                     
+
+
+              Model Fit Statistics
+
+R-Square        0.2552     Adj R-Sq        0.2549
+AIC         -2897.0156     BIC         -2895.3179
+SBC         -2877.3487     C(p)          276.9090
+
+
+                     Type 3 Analysis of Effects
+ 
+                                         Sum of
+Effect                         DF       Squares    F Value    Pr > F
+
+LG10_alcohol                    1      749.9672    1310.49    <.0001
+LG10_volatile_acidity           1      239.1735     417.93    <.0001
+
+
+                      Analysis of Maximum Likelihood Estimates
+ 
+                                                     Standard
+Parameter                          DF    Estimate       Error    t Value    Pr > |t|
+
+Intercept                           1     -2.8022      0.2550     -10.99      <.0001
+LG10_alcohol                        1      8.6408      0.2387      36.20      <.0001
+LG10_volatile_acidity               1     -4.2684      0.2088     -20.44      <.0001
+
+
+Step 3: Effect IMP_sulphates entered.
+
+
+                             Analysis of Variance
+ 
+                                   Sum of
+Source                 DF         Squares     Mean Square    F Value    Pr > F
+
+Model                   3     1059.283450      353.094483     625.51    <.0001
+Error                5192     2930.852039        0.564494                     
+Corrected Total      5195     3990.135489                                     
+
+
+              Model Fit Statistics
+
+R-Square        0.2655     Adj R-Sq        0.2651
+AIC         -2967.2084     BIC         -2965.5011
+SBC         -2940.9858     C(p)          203.4775
+
+
+                     Type 3 Analysis of Effects
+ 
+                                         Sum of
+Effect                         DF       Squares    F Value    Pr > F
+
+IMP_sulphates                   1       41.0052      72.64    <.0001
+LG10_alcohol                    1      744.5832    1319.03    <.0001
+LG10_volatile_acidity           1      273.0538     483.71    <.0001
+
+
+                      Analysis of Maximum Likelihood Estimates
+ 
+                                                     Standard
+Parameter                          DF    Estimate       Error    t Value    Pr > |t|
+
+Intercept                           1     -3.0455      0.2548     -11.95      <.0001
+IMP_sulphates                       1      0.6163      0.0723       8.52      <.0001
+LG10_alcohol                        1      8.6107      0.2371      36.32      <.0001
+LG10_volatile_acidity               1     -4.6868      0.2131     -21.99      <.0001
+
+
+Step 4: Effect LG10_free_sulfur_dioxide entered.
+
+
+                             Analysis of Variance
+ 
+                                   Sum of
+Source                 DF         Squares     Mean Square    F Value    Pr > F
+
+Model                   4     1100.081150      275.020288     493.98    <.0001
+Error                5191     2890.054339        0.556743                     
+Corrected Total      5195     3990.135489                                     
+
+
+              Model Fit Statistics
+
+R-Square        0.2757     Adj R-Sq        0.2751
+AIC         -3038.0453     BIC         -3036.2728
+SBC         -3005.2671     C(p)          130.4277
+
+
+                     Type 3 Analysis of Effects
+ 
+                                         Sum of
+Effect                         DF       Squares    F Value    Pr > F
+
+IMP_sulphates                   1       52.7872      94.81    <.0001
+LG10_alcohol                    1      782.1094    1404.79    <.0001
+LG10_free_sulfur_dioxide        1       40.7977      73.28    <.0001
+LG10_volatile_acidity           1      164.8948     296.18    <.0001
+
+
+                      Analysis of Maximum Likelihood Estimates
+ 
+                                                     Standard
+Parameter                          DF    Estimate       Error    t Value    Pr > |t|
+
+Intercept                           1     -4.0384      0.2784     -14.51      <.0001
+IMP_sulphates                       1      0.7068      0.0726       9.74      <.0001
+LG10_alcohol                        1      8.9471      0.2387      37.48      <.0001
+LG10_free_sulfur_dioxide            1      0.3495      0.0408       8.56      <.0001
+LG10_volatile_acidity               1     -3.9397      0.2289     -17.21      <.0001
+
+
+Step 5: Effect LG10_total_sulfur_dioxide entered.
+
+
+                             Analysis of Variance
+ 
+                                   Sum of
+Source                 DF         Squares     Mean Square    F Value    Pr > F
+
+Model                   5     1149.686415      229.937283     420.14    <.0001
+Error                5190     2840.449074        0.547293                     
+Corrected Total      5195     3990.135489                                     
+
+
+              Model Fit Statistics
+
+R-Square        0.2881     Adj R-Sq        0.2874
+AIC         -3126.0044     BIC         -3124.0714
+SBC         -3086.6705     C(p)           41.1759
+
+
+                     Type 3 Analysis of Effects
+ 
+                                         Sum of
+Effect                         DF       Squares    F Value    Pr > F
+
+IMP_sulphates                   1       31.2896      57.17    <.0001
+LG10_alcohol                    1      701.8732    1282.45    <.0001
+LG10_free_sulfur_dioxide        1       90.3046     165.00    <.0001
+LG10_total_sulfur_dioxide       1       49.6053      90.64    <.0001
+LG10_volatile_acidity           1      202.3598     369.75    <.0001
+
+
+                      Analysis of Maximum Likelihood Estimates
+ 
+                                                     Standard
+Parameter                          DF    Estimate       Error    t Value    Pr > |t|
+
+Intercept                           1     -2.9642      0.2982      -9.94      <.0001
+IMP_sulphates                       1      0.5570      0.0737       7.56      <.0001
+LG10_alcohol                        1      8.5846      0.2397      35.81      <.0001
+LG10_free_sulfur_dioxide            1      0.7473      0.0582      12.85      <.0001
+LG10_total_sulfur_dioxide           1     -0.5554      0.0583      -9.52      <.0001
+LG10_volatile_acidity               1     -4.5179      0.2350     -19.23      <.0001
+
+
+Step 6: Effect LG10_density entered.
+
+
+                             Analysis of Variance
+ 
+                                   Sum of
+Source                 DF         Squares     Mean Square    F Value    Pr > F
+
+Model                   6     1163.676525      193.946087     356.06    <.0001
+Error                5189     2826.458964        0.544702                     
+Corrected Total      5195     3990.135489                                     
+
+
+              Model Fit Statistics
+
+R-Square        0.2916     Adj R-Sq        0.2908
+AIC         -3149.6595     BIC         -3147.6688
+SBC         -3103.7700     C(p)           17.4402
+
+
+                     Type 3 Analysis of Effects
+ 
+                                         Sum of
+Effect                         DF       Squares    F Value    Pr > F
+
+IMP_sulphates                   1       19.3244      35.48    <.0001
+LG10_alcohol                    1      438.9371     805.83    <.0001
+LG10_density                    1       13.9901      25.68    <.0001
+LG10_free_sulfur_dioxide        1       84.7061     155.51    <.0001
+LG10_total_sulfur_dioxide       1       41.7865      76.71    <.0001
+LG10_volatile_acidity           1      215.9693     396.49    <.0001
+
+
+                      Analysis of Maximum Likelihood Estimates
+ 
+                                                     Standard
+Parameter                          DF    Estimate       Error    t Value    Pr > |t|
+
+Intercept                           1    -41.1522      7.5411      -5.46      <.0001
+IMP_sulphates                       1      0.4541      0.0762       5.96      <.0001
+LG10_alcohol                        1      9.8616      0.3474      28.39      <.0001
+LG10_density                        1       123.0     24.2628       5.07      <.0001
+LG10_free_sulfur_dioxide            1      0.7257      0.0582      12.47      <.0001
+LG10_total_sulfur_dioxide           1     -0.5146      0.0588      -8.76      <.0001
+LG10_volatile_acidity               1     -4.7775      0.2399     -19.91      <.0001
+
+
+Step 7: Effect LG10_chlorides entered.
+
+
+                             Analysis of Variance
+ 
+                                   Sum of
+Source                 DF         Squares     Mean Square    F Value    Pr > F
+
+Model                   7     1167.944038      166.849148     306.72    <.0001
+Error                5188     2822.191451        0.543984                     
+Corrected Total      5195     3990.135489                                     
+
+
+              Model Fit Statistics
+
+R-Square        0.2927     Adj R-Sq        0.2918
+AIC         -3155.5106     BIC         -3153.4970
+SBC         -3103.0655     C(p)           11.5899
+
+
+                     Type 3 Analysis of Effects
+ 
+                                         Sum of
+Effect                         DF       Squares    F Value    Pr > F
+
+IMP_sulphates                   1       22.9934      42.27    <.0001
+LG10_alcohol                    1      401.7722     738.57    <.0001
+LG10_chlorides                  1        4.2675       7.84    0.0051
+LG10_density                    1       14.8126      27.23    <.0001
+LG10_free_sulfur_dioxide        1       85.1003     156.44    <.0001
+LG10_total_sulfur_dioxide       1       44.9962      82.72    <.0001
+LG10_volatile_acidity           1      192.3180     353.54    <.0001
+
+
+                      Analysis of Maximum Likelihood Estimates
+ 
+                                                     Standard
+Parameter                          DF    Estimate       Error    t Value    Pr > |t|
+
+Intercept                           1    -41.9949      7.5421      -5.57      <.0001
+IMP_sulphates                       1      0.5153      0.0793       6.50      <.0001
+LG10_alcohol                        1      9.6519      0.3552      27.18      <.0001
+LG10_chlorides                      1     -2.7387      0.9778      -2.80      0.0051
+LG10_density                        1       126.7     24.2839       5.22      <.0001
+LG10_free_sulfur_dioxide            1      0.7274      0.0582      12.51      <.0001
+LG10_total_sulfur_dioxide           1     -0.5407      0.0594      -9.09      <.0001
+LG10_volatile_acidity               1     -4.6242      0.2459     -18.80      <.0001
+
+
+NOTE: No (additional) effects met the 0.05 significance level for entry into the model.
+
+
+                        Summary of Stepwise Selection
+ 
+                     Effect                      Number
+    Step    Entered                        DF        In    F Value    Pr > F
+
+       1    LG10_alcohol                    1         1    1260.24    <.0001
+       2    LG10_volatile_acidity           1         2     417.93    <.0001
+       3    IMP_sulphates                   1         3      72.64    <.0001
+       4    LG10_free_sulfur_dioxide        1         4      73.28    <.0001
+       5    LG10_total_sulfur_dioxide       1         5      90.64    <.0001
+       6    LG10_density                    1         6      25.68    <.0001
+       7    LG10_chlorides                  1         7       7.84    0.0051
+
+
+The selected model is the model trained in the last step (Step 7). It consists of the following effects:
+
+Intercept  IMP_sulphates  LG10_alcohol  LG10_chlorides  LG10_density  LG10_free_sulfur_dioxide  LG10_total_sulfur_dioxide  LG10_volatile_acidity  
+
+
+                             Analysis of Variance
+ 
+                                   Sum of
+Source                 DF         Squares     Mean Square    F Value    Pr > F
+
+Model                   7     1167.944038      166.849148     306.72    <.0001
+Error                5188     2822.191451        0.543984                     
+Corrected Total      5195     3990.135489                                     
+
+
+              Model Fit Statistics
+
+R-Square        0.2927     Adj R-Sq        0.2918
+AIC         -3155.5106     BIC         -3153.4970
+SBC         -3103.0655     C(p)           11.5899
+
+
+                     Type 3 Analysis of Effects
+ 
+                                         Sum of
+Effect                         DF       Squares    F Value    Pr > F
+
+IMP_sulphates                   1       22.9934      42.27    <.0001
+LG10_alcohol                    1      401.7722     738.57    <.0001
+LG10_chlorides                  1        4.2675       7.84    0.0051
+LG10_density                    1       14.8126      27.23    <.0001
+LG10_free_sulfur_dioxide        1       85.1003     156.44    <.0001
+LG10_total_sulfur_dioxide       1       44.9962      82.72    <.0001
+LG10_volatile_acidity           1      192.3180     353.54    <.0001
+
+
+                      Analysis of Maximum Likelihood Estimates
+ 
+                                                     Standard
+Parameter                          DF    Estimate       Error    t Value    Pr > |t|
+
+Intercept                           1    -41.9949      7.5421      -5.57      <.0001
+IMP_sulphates                       1      0.5153      0.0793       6.50      <.0001
+LG10_alcohol                        1      9.6519      0.3552      27.18      <.0001
+LG10_chlorides                      1     -2.7387      0.9778      -2.80      0.0051
+LG10_density                        1       126.7     24.2839       5.22      <.0001
+LG10_free_sulfur_dioxide            1      0.7274      0.0582      12.51      <.0001
+LG10_total_sulfur_dioxide           1     -0.5407      0.0594      -9.09      <.0001
+LG10_volatile_acidity               1     -4.6242      0.2459     -18.80      <.0001

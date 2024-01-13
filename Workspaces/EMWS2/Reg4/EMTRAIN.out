@@ -1,0 +1,102 @@
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+Variable Summary
+
+          Measurement    Frequency
+ Role        Level         Count
+
+INPUT      INTERVAL          11   
+INPUT      NOMINAL            2   
+TARGET     INTERVAL           1   
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+Predicted and decision variables
+
+Type         Variable           Label
+
+TARGET       quality                        
+PREDICTED    P_quality    Predicted: quality
+RESIDUAL     R_quality    Residual: quality 
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+
+The DMREG Procedure
+
+               Model Information
+
+Training Data Set             WORK.EM_DMREG.VIEW
+DMDB Catalog                  WORK.REG4_DMDB    
+Target Variable               quality           
+Target Measurement Level      Interval          
+Error                         Normal            
+Link Function                 Identity          
+Number of Model Parameters    18                
+Number of Observations        5196              
+
+
+                             Analysis of Variance
+ 
+                                   Sum of
+Source                 DF         Squares     Mean Square    F Value    Pr > F
+
+Model                  17     1175.331607       69.137153     127.18    <.0001
+Error                5178     2814.803882        0.543608                     
+Corrected Total      5195     3990.135489                                     
+
+
+              Model Fit Statistics
+
+R-Square        0.2946     Adj R-Sq        0.2922
+AIC         -3149.1299     BIC         -3147.0047
+SBC         -3031.1283     C(p)           18.0000
+
+
+                     Type 3 Analysis of Effects
+ 
+                                         Sum of
+Effect                         DF       Squares    F Value    Pr > F
+
+IMP_pH                          1        0.8773       1.61    0.2040
+IMP_sulphates                   1       20.4144      37.55    <.0001
+LG10_alcohol                    1      374.8196     689.50    <.0001
+LG10_chlorides                  1        4.2678       7.85    0.0051
+LG10_citric_acid                1        0.0175       0.03    0.8577
+LG10_density                    1       15.5949      28.69    <.0001
+LG10_fixed_acidity              1        2.5220       4.64    0.0313
+LG10_free_sulfur_dioxide        1       75.0348     138.03    <.0001
+LG10_total_sulfur_dioxide       1       24.2019      44.52    <.0001
+LG10_volatile_acidity           1      136.8789     251.80    <.0001
+TasterName                      5        4.1067       1.51    0.1828
+TastingDate                     1        0.0728       0.13    0.7143
+category                        1        0.6835       1.26    0.2622
+
+
+                      Analysis of Maximum Likelihood Estimates
+ 
+                                                     Standard
+Parameter                          DF    Estimate       Error    t Value    Pr > |t|
+
+Intercept                           1    -49.2156      8.7779      -5.61      <.0001
+IMP_pH                              1     -0.1044      0.0822      -1.27      0.2040
+IMP_sulphates                       1      0.5100      0.0832       6.13      <.0001
+LG10_alcohol                        1      9.9241      0.3779      26.26      <.0001
+LG10_chlorides                      1     -2.8692      1.0240      -2.80      0.0051
+LG10_citric_acid                    1     -0.0501      0.2793      -0.18      0.8577
+LG10_density                        1       153.6     28.6817       5.36      <.0001
+LG10_fixed_acidity                  1     -0.5571      0.2586      -2.15      0.0313
+LG10_free_sulfur_dioxide            1      0.7039      0.0599      11.75      <.0001
+LG10_total_sulfur_dioxide           1     -0.5116      0.0767      -6.67      <.0001
+LG10_volatile_acidity               1     -4.8087      0.3030     -15.87      <.0001
+TasterName                Alice     1    -0.00696      0.0235      -0.30      0.7674
+TasterName                Bob       1      0.0418      0.0230       1.82      0.0691
+TasterName                Charl     1    -0.00956      0.0224      -0.43      0.6702
+TasterName                David     1     -0.0245      0.0230      -1.06      0.2879
+TasterName                Eva       1     -0.0340      0.0231      -1.47      0.1412
+TastingDate                         1    -0.00001    0.000032      -0.37      0.7143
+category                  red       1      0.0322      0.0288       1.12      0.2622

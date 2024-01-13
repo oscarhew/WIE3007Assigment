@@ -1,0 +1,103 @@
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+Variable Summary
+
+          Measurement    Frequency
+ Role        Level         Count
+
+TARGET     INTERVAL          1    
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+
+
+
+
+
+
+
+Fit Statistics
+Model Selection based on Train: Average Squared Error (_ASE_)
+
+                                         Train:
+                                        Average          Train:
+Selected    Model     Model             Squared    Misclassification
+ Model      Node      Description        Error            Rate
+
+   Y        Neural    Neural Network    0.49189            .        
+            Reg4      Regression        0.54173            .        
+            Reg       Forward           0.54315            .        
+            Reg2      Backward          0.54315            .        
+            Reg3      Stepwise          0.54315            .        
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+
+
+
+
+
+
+
+Fit Statistics Table
+Target: quality
+
+Data Role=Train
+
+Statistics                                             Neural        Reg4         Reg        Reg2        Reg3
+
+Train: Akaike's Information Criterion                -3570.52    -3149.13    -3155.51    -3155.51    -3155.51
+Train: Average Squared Error                             0.49        0.54        0.54        0.54        0.54
+Train: Average Error Function                            0.49        0.54        0.54        0.54        0.54
+Selection Criterion: Train: Average Squared Error        0.49        0.54        0.54        0.54        0.54
+Train: Degrees of Freedom for Error                   5138.00     5178.00     5188.00     5188.00     5188.00
+Train: Model Degrees of Freedom                         58.00       18.00        8.00        8.00        8.00
+Train: Total Degrees of Freedom                       5196.00     5196.00     5196.00     5196.00     5196.00
+Train: Divisor for ASE                                5196.00     5196.00     5196.00     5196.00     5196.00
+Train: Error Function                                 2555.88     2814.80     2822.19     2822.19     2822.19
+Train: Final Prediction Error                            0.50        0.55        0.54        0.54        0.54
+Train: Maximum Absolute Error                            3.19        3.39        3.39        3.39        3.39
+Train: Misclassification Rate                             .           .           .           .           .  
+Train: Mean Squared Error                                0.50        0.54        0.54        0.54        0.54
+Train: Sum of Frequencies                             5196.00     5196.00     5196.00     5196.00     5196.00
+Train: Number of Estimated Weights                      58.00       18.00        8.00        8.00        8.00
+Train: Root Average Squared Error                        0.70        0.74        0.74        0.74        0.74
+Train: Root Final Prediction Error                       0.71        0.74        0.74        0.74        0.74
+Train: Root Mean Squared Error                           0.71        0.74        0.74        0.74        0.74
+Train: Schwarz's Bayesian Criterion                  -3190.29    -3031.13    -3103.07    -3103.07    -3103.07
+Train: Sum of Squared Errors                          2555.88     2814.80     2822.19     2822.19     2822.19
+Train: Sum of Case Weights Times Freq                 5196.00     5196.00     5196.00     5196.00     5196.00
+Train: Number of Wrong Classifications                    .           .           .           .           .  
+
+
+Data Role=Test
+
+Statistics                                Neural       Reg4        Reg       Reg2       Reg3
+
+                                             .          .          .          .          .  
+                                             .          .          .          .          .  
+Test: Lower 95% Conf. Limit for TASE         .         0.46       0.46       0.46       0.46
+Test: Upper 95% Conf. Limit for TASE         .         0.59       0.59       0.59       0.59
+Test: Average Squared Error                 0.51       0.52       0.52       0.52       0.52
+Test: Average Error Function                0.51       0.52       0.52       0.52       0.52
+Test: Divisor for TASE                   1299.00    1299.00    1299.00    1299.00    1299.00
+Test: Error Function                      668.89     679.45     678.66     678.66     678.66
+                                             .          .          .          .          .  
+                                             .          .          .          .          .  
+                                             .          .          .          .          .  
+                                             .          .          .          .          .  
+Test: Maximum Absolute Error                2.85       2.90       2.88       2.88       2.88
+Test: Misclassification Rate                 .          .          .          .          .  
+Test: Lower 95% Conf. Limit for TMISC        .          .          .          .          .  
+Test: Upper 95% Conf. Limit for TMISC        .          .          .          .          .  
+Test: Mean Squared Error                    0.51       0.52       0.52       0.52       0.52
+Test: Sum of Frequencies                 1299.00    1299.00    1299.00    1299.00    1299.00
+Test: Root Average Squared Error            0.72       0.72       0.72       0.72       0.72
+Test: Root Mean Squared Error               0.72       0.72       0.72       0.72       0.72
+Test: Sum of Squared Errors               668.89     679.45     678.66     678.66     678.66
+Test: Sum of Case Weights Times Freq     1299.00    1299.00    1299.00    1299.00    1299.00
+Test: Number of Wrong Classifications        .          .          .          .          .  

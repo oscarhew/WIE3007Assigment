@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?><_ROOT_  Location="CATALOG" Catalog="SASHELP.EMTSDM.TSDP.SOURCE" TimeIntervalSel="AUTO" TimeInterval="AUTO"
+ UserLengthCycle="2" LengthCycleSel="DEFAULT" Missing="MISSING" Accumulation="TOTAL"
+ MissingConstant="0.0" Transform="NONE" BoxCoxPara="0.0" ApplyDIF="N" DIF="1" ApplySDIF="N"
+ ExportedDs="SEASON" TransExportedDs="Y" TrendDefaultNPeriods="Y" TrendNPeriods="24"
+ ODSGraphs="NONE" CreateTSID="Y" Transpose="Y" TransByVar="BYTSID" KeepVarRole="N"
+ ZeroMiss="NONE" StartEndTime="DEFAULT" NMaxTSPlot="100" ExportSeasonStat="N" SeasonStat="SUM"
+ ForceRun="N" RunAction="Train" Component="TSDP" TimeOfDay="DEFAULT" MergeClus="N"
+ SaveMergedDs="DEFAULT" LibnameExtDs="WORK" NameExtDs="TS_SEGMENT_DS" ClusterInput="N"
+ Start="DEFAULT" End="DEFAULT" AtomicData="N" InputDataType="DEFAULT" RawCreateTime="2019919854.6"
+ CreateTime="03JAN2024:16:50:55" RunId="b2b99189-3179-4dbe-b7d3-e6f8816aa23d" RawLastTimeRun="2020119460.4"
+ RawRunTime="4.9289999008" LastTimeRun="06JAN2024:00:17:40" RunTime="0 Hr. 0 Min. 4.93 Sec."
+>
+<VARIABLEPROPERTIES/>
+<FILEPROPERTIES ><![CDATA[
+USERTRAINCODE
+USERSCORECODE
+USERREPORTCODE
+TIMESTARTANDEND
+]]>
+</FILEPROPERTIES></_ROOT_>

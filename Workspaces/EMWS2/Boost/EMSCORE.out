@@ -1,0 +1,20 @@
+ 
+                                                                                                                                                                                                                                                                
+ 
+Variable Importance
+
+Obs    NAME                    LABEL                   NRULES    NSURROGATES    IMPORTANCE
+
+  1    alcohol                                           36           32          1.00000 
+  2    density                                           12           68          0.97474 
+  3    chlorides                                         11           60          0.92302 
+  4    volatile_acidity        volatile acidity          29           18          0.59805 
+  5    category                                           0           69          0.53000 
+  6    total_sulfur_dioxide    total sulfur dioxide      10           47          0.45040 
+  7    free_sulfur_dioxide     free sulfur dioxide       19           11          0.38097 
+  8    pH                                                 9           17          0.37690 
+  9    citric_acid             citric acid               18           12          0.31769 
+ 10    sulphates                                         17            7          0.29968 
+ 11    fixed_acidity           fixed acidity             11           20          0.27054 
+ 12    TastingDate                                        6            1          0.09843 
+ 13    TasterName                                         4            0          0.07183 

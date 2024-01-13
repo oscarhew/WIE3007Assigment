@@ -1,0 +1,54 @@
+*------------------------------------------------------------*
+* Score Log
+Date:                January 06, 2024
+Time:                00:23:23
+*------------------------------------------------------------*
+11151  *------------------------------------------------------------*;
+11152  * Assoc: Scoring DATA data;
+11153  *------------------------------------------------------------*;
+11154  data EMWS2.Assoc_TRANSACTION
+11155  / view=EMWS2.Assoc_TRANSACTION
+11156  ;
+11157  set EMWS2.FIMPORT6_train
+11158  ;
+11159  run;
+
+NOTE: DATA STEP view saved on file EMWS2.ASSOC_TRANSACTION.
+NOTE: A stored DATA STEP view cannot run under a different operating system.
+NOTE: View EMWS2.FIMPORT6_TRAIN.VIEW used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+11160  quit;
+
+11161  *------------------------------------------------------------*;
+11162  * Assoc: Computing metadata for TRANSACTION data;
+11163  *------------------------------------------------------------*;
+
+NOTE: View EMWS2.ASSOC_TRANSACTION.VIEW used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.03 seconds
+      
+11495  data EMWS2.Assoc_EMINFO;
+11496  length TARGET KEY $32 DATA $43;
+11497  TARGET='';
+11498  KEY='ASSOCIATION';
+11499  DATA="Assoc";
+11500  output;
+11501  run;
+
+NOTE: The data set EMWS2.ASSOC_EMINFO has 1 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: View EMWS2.ASSOC_TRANSACTION.VIEW used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      

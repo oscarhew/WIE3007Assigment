@@ -1,0 +1,26 @@
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+Variable Summary
+
+            Measurement    Frequency
+Role           Level         Count
+
+INPUT        INTERVAL          11   
+INPUT        NOMINAL            2   
+RESIDUAL     INTERVAL           1   
+SEQUENCE     INTERVAL           1   
+TARGET       INTERVAL           1   
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+Partition Summary
+
+                               Number of
+Type         Data Set        Observations
+
+DATA     EMWS2.Stat_TRAIN        6497    
+TRAIN    EMWS2.Part_TRAIN        5198    
+TEST     EMWS2.Part_TEST         1299    

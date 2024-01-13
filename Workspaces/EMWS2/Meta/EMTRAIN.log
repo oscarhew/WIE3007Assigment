@@ -1,0 +1,149 @@
+*------------------------------------------------------------*
+* Training Log
+Date:                January 06, 2024
+Time:                00:17:47
+*------------------------------------------------------------*
+10867  proc freq data=EMWS2.Meta_VariableSet noprint;
+10868  table ROLE*LEVEL/out=WORK.MetaMETA;
+10869  run;
+
+NOTE: There were 13 observations read from the data set EMWS2.META_VARIABLESET.
+NOTE: The data set WORK.METAMETA has 2 observations and 4 variables.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.00 seconds
+      
+
+10870  proc print data=WORK.MetaMETA label noobs;
+10871  var ROLE LEVEL COUNT;
+10872  label ROLE = "%sysfunc(sasmsg(sashelp.dmine, meta_role_vlabel, NOQUOTE))" LEVEL = "%sysfunc(sasmsg(sashelp.dmine, meta_level_vlabel, NOQUOTE))" COUNT = "%sysfunc(sasmsg(sashelp.dmine, rpt_count_vlabel, NOQUOTE))";
+10873  title9 ' ';
+10874  title10 "%sysfunc(sasmsg(sashelp.dmine, rpt_varSummary_title  , NOQUOTE))";
+10875  run;
+
+NOTE: There were 2 observations read from the data set WORK.METAMETA.
+NOTE: The PROCEDURE PRINT printed page 1.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+10876  title10;
+
+10877  data WORK.META_CHANGE;
+10878  set EMWS2.Meta_VariableSet;
+10879  where (NEWROLE ne "DEFAULT" and NEWROLE ne ROLE) or (NEWLEVEL ne "DEFAULT" and NEWLEVEL ne LEVEL) or (NEWREPORT ne "D" and NEWREPORT ne REPORT) or (NEWORDER ne "DEFAULT" and NEWORDER ne ORDER);
+10880  run;
+
+NOTE: There were 0 observations read from the data set EMWS2.META_VARIABLESET.
+      WHERE ((NEWROLE not = 'DEFAULT') and (NEWROLE not = ROLE)) or ((NEWLEVEL not = 'DEFAULT') and (NEWLEVEL not = LEVEL)) or ((NEWREPORT not = 'D') and (NEWREPORT not = REPORT)) or ((NEWORDER not = 'DEFAULT') and (NEWORDER not = ORDER));
+NOTE: The data set WORK.META_CHANGE has 0 observations and 26 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+10881  %let EM_LIB=EMWS2;
+10882  %em_path(NODEID=Meta, OUTDS=META_PREDECESSOR, NODES=PREDECESSOR);
+
+10883  data META_PREDECESSOR;
+10884  length nodelabel $32 component $32;
+10885  nodelabel="TSDP";
+10886  component="TSDP";
+10887  output;
+10888  run;
+
+NOTE: The data set WORK.META_PREDECESSOR has 1 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: PROCEDURE DISPLAY used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+10889  data EMWS2.Meta_CHOICE(rename=(role=Key dataset=Choice));
+10890  retain Variable 'DATASET';
+10891  set
+10892  EMWS2.TSDP_exportset
+10893  ;
+10894  where ROLE in('RAW', 'TRAIN', 'VALIDATE', 'TEST', 'SCORE', 'TRANSACTION') and export='Y';
+10895  if ROLE in('RAW','TRAIN') then ROLE='TRAIN';
+10896  drop export needupdate importport applydelta applyscore deltacode;
+10897  run;
+
+NOTE: There were 1 observations read from the data set EMWS2.TSDP_EXPORTSET.
+      WHERE ROLE in ('RAW', 'SCORE', 'TEST', 'TRAIN', 'TRANSACTION', 'VALIDATE') and (export='Y');
+NOTE: The data set EMWS2.META_CHOICE has 1 observations and 13 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+10898  %let hiddenNum=0;
+10899  data _null_;
+10900  length string $200;
+10901  set EMWS2.Meta_VariableSet end = eof;
+10902  file #LN00128;
+10903  where HIDDEN = 'Y' and HIDE = 'N';
+10904  if _N_=1 then do;
+10905  put "*------------------------------------------------------------*;";
+10906  put '* Unhide Variables;';
+10907  put "*------------------------------------------------------------*;";
+10908  put 'length NAME $32 ROLE $32 LEVEL $10 ORDER $8 CREATOR $32 REPORT $1 FORMATTYPE $10';
+10909  put '       LABEL $200 FORMAT INFORMAT $36 INDEX $1 INDEXTYPE $9;';
+10910  end;
+10911  string = 'NAME="'!!strip(NAME)!!'";';
+10912  put string;
+10913  if NEWROLE ne 'DEFAULT' then ROLE = NEWROLE;
+10914  string = 'ROLE="'!!strip(ROLE)!!'";';
+10915  put string;
+10916  if NEWLEVEL ne 'DEFAULT' then LEVEL = NEWLEVEL;
+10917  string = 'LEVEL="'!!strip(LEVEL)!!'";';
+10918  put string;
+10919  if NEWREPORT ne 'D' then REPORT = NEWREPORT;
+10920  string = 'REPORT="'!!strip(REPORT)!!'";';
+10921  put string;
+10922  if NEWORDER ne 'DEFAULT' then ORDER = NEWORDER;
+10923  string = 'ORDER="'!!strip(ORDER)!!'";';
+10924  put string;
+10925  string = 'CREATOR="'!!strip(CREATOR)!!'";';
+10926  put string;
+10927  string = 'FORMATTYPE="'!!strip(FORMATTYPE)!!'";';
+10928  put string;
+10929  string = 'TYPE="'!!strip(TYPE)!!'";';
+10930  put string;
+10931  string = 'LABEL="'!!strip(LABEL)!!'";';
+10932  put string;
+10933  string = 'FORMAT="'!!strip(FORMAT)!!'";';
+10934  put string;
+10935  string = 'INFORMAT="'!!strip(INFORMAT)!!'";';
+10936  put string;
+10937  string = 'INDEX="'!!strip(INDEX)!!'";';
+10938  put string;
+10939  string = 'INDEXTYPE="'!!strip(INDEXTYPE)!!'";';
+10940  put string;
+10941  string = 'LENGTH='!!strip(put(length, best.))!!';';
+10942  put string;
+10943  put 'output;';
+10944  if eof then call symput('hiddenNum', '1');
+10945  run;
+
+NOTE: The file #LN00128 is:
+      Filename=C:\Users\Oscar\Documents\Document\File need to backup\UM\Y4S1\Data Mining and Warehousing\GroupAssignment\GroupAssignment_2023\Workspaces\EMWS2\Meta\UNHIDECODE_DATA.sas,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=06Jan2024:00:17:47,
+      Create Time=06Jan2024:00:17:47
+
+NOTE: 0 records were written to the file #LN00128.
+NOTE: There were 0 observations read from the data set EMWS2.META_VARIABLESET.
+      WHERE (HIDDEN='Y') and (HIDE='N');
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: This SAS session is using a registry in WORK.  All changes will be lost at the end of this session.

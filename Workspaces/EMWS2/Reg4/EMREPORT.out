@@ -1,0 +1,92 @@
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+Fit Statistics
+
+Target=quality Target Label=' '
+
+   Fit
+Statistics    Statistics Label                     Train       Test
+
+ _AIC_        Akaike's Information Criterion    -3149.13        .  
+ _ASE_        Average Squared Error                 0.54       0.52
+ _AVERR_      Average Error Function                0.54       0.52
+ _DFE_        Degrees of Freedom for Error       5178.00        .  
+ _DFM_        Model Degrees of Freedom             18.00        .  
+ _DFT_        Total Degrees of Freedom           5196.00        .  
+ _DIV_        Divisor for ASE                    5196.00    1299.00
+ _ERR_        Error Function                     2814.80     679.45
+ _FPE_        Final Prediction Error                0.55        .  
+ _MAX_        Maximum Absolute Error                3.39       2.90
+ _MSE_        Mean Square Error                     0.54       0.52
+ _NOBS_       Sum of Frequencies                 5196.00    1299.00
+ _NW_         Number of Estimate Weights           18.00        .  
+ _RASE_       Root Average Sum of Squares           0.74       0.72
+ _RFPE_       Root Final Prediction Error           0.74        .  
+ _RMSE_       Root Mean Squared Error               0.74       0.72
+ _SBC_        Schwarz's Bayesian Criterion      -3031.13        .  
+ _SSE_        Sum of Squared Errors              2814.80     679.45
+ _SUMW_       Sum of Case Weights Times Freq     5196.00    1299.00
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+Assessment Score Rankings
+
+Data Role=TRAIN Target Variable=quality Target Label=' '
+
+           Number of       Mean        Mean
+Depth    Observations     Target    Predicted
+
+   5          260        6.77308     6.70742 
+  10          260        6.51923     6.49285 
+  15          260        6.32692     6.38716 
+  20          260        6.35000     6.30174 
+  25          259        6.28185     6.20550 
+  30          260        6.16923     6.12687 
+  35          260        6.12692     6.05763 
+  40          260        5.89615     5.98242 
+  45          260        5.89231     5.91216 
+  50          259        5.78764     5.84576 
+  55          260        5.71538     5.77206 
+  60          260        5.59231     5.70229 
+  65          260        5.57308     5.63205 
+  70          260        5.52692     5.56688 
+  75          259        5.56757     5.49994 
+  80          260        5.45000     5.43313 
+  85          260        5.33077     5.35211 
+  90          260        5.23077     5.25013 
+  95          260        5.10000     5.11690 
+ 100          259        4.98456     4.84884 
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+Assessment Score Distribution
+
+Data Role=TRAIN Target Variable=quality Target Label=' '
+
+  Range for         Mean        Mean        Number of      Model
+  Predicted        Target    Predicted    Observations     Score
+
+7.141 -  7.298    5.66667     7.22477            3        7.21971
+6.985 -  7.141    6.66667     7.04259            6        7.06299
+6.828 -  6.985    7.24000     6.89629           25        6.90628
+6.671 -  6.828    6.67347     6.74356           98        6.74956
+6.514 -  6.671    6.71154     6.58542          208        6.59284
+6.358 -  6.514    6.40199     6.42863          403        6.43612
+6.201 -  6.358    6.33410     6.28071          437        6.27940
+6.044 -  6.201    6.18538     6.11997          561        6.12268
+5.888 -  6.044    5.92403     5.96293          566        5.96596
+5.731 -  5.888    5.74386     5.81050          570        5.80925
+5.574 -  5.731    5.58333     5.65172          600        5.65253
+5.417 -  5.574    5.50083     5.49797          603        5.49581
+5.261 -  5.417    5.33559     5.34444          444        5.33909
+5.104 -  5.261    5.18361     5.19089          305        5.18237
+4.947 -  5.104    5.08021     5.03288          187        5.02565
+4.791 -  4.947    5.08411     4.87952          107        4.86893
+4.634 -  4.791    4.81250     4.72252           48        4.71222
+4.477 -  4.634    4.40000     4.56159           20        4.55550
+4.320 -  4.477    5.25000     4.38010            4        4.39878
+4.164 -  4.320    4.00000     4.16370            1        4.24206

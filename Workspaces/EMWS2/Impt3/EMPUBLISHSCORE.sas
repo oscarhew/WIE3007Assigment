@@ -1,0 +1,11 @@
+*;
+*MEAN-MAX-MIN-MEDIAN-MIDRANGE AND ROBUST ESTIMATES;
+*;
+format IMP_pH BEST12.0;
+label IMP_pH = 'Imputed pH';
+IMP_pH = pH;
+if missing(pH) then IMP_pH = 3.2187950646;
+format IMP_sulphates BEST12.0;
+label IMP_sulphates = 'Imputed sulphates';
+IMP_sulphates = sulphates;
+if missing(sulphates) then IMP_sulphates = 0.5308232119;

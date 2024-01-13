@@ -1,0 +1,32 @@
+ 
+                                                                                                                                                                                                                                                                
+ 
+Summary Statistics for Class Targets
+(maximum 500 observations printed)
+
+Data=DATA
+
+            Numeric    Formatted    Frequency
+Variable     Value       Value        Count      Percent    Label
+
+quality        3           3             30       0.4618         
+quality        4           4            216       3.3246         
+quality        5           5           2138      32.9075         
+quality        6           6           2836      43.6509         
+quality        7           7           1079      16.6077         
+quality        8           8            193       2.9706         
+quality        9           9              5       0.0770         
+
+
+Data=SAMPLE
+
+            Numeric    Formatted    Frequency
+Variable     Value       Value        Count      Percent    Label
+
+quality        3           3             3        0.4615         
+quality        4           4            19        2.9231         
+quality        5           5           208       32.0000         
+quality        6           6           279       42.9231         
+quality        7           7           118       18.1538         
+quality        8           8            22        3.3846         
+quality        9           9             1        0.1538         

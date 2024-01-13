@@ -1,0 +1,125 @@
+*------------------------------------------------------------*
+* Score Log
+Date:                January 06, 2024
+Time:                00:56:48
+*------------------------------------------------------------*
+NOTE: This SAS session is using a registry in WORK.  All changes will be lost at the end of this session.
+11156  data _null_;
+11157  set EMWS2.Impt3_META end=eof;
+11158  length string $34;
+11159  retain missTotal;
+11160  file #LN00154;
+11161  if _n_=1 then misstotal = percentmiss;
+11162  missTotal = percentmiss+misstotal;
+11163  if IMP ne '' and METHOD ne 'NONE' then do;
+11164  string = '"'!!strip(NAME)!!'"';
+11165  put 'if NAME = ' string 'then delete;';
+11166  put 'else ';
+11167  string = '"'!!strip(IMP)!!'"';
+11168  put 'if NAME    = ' string ' then do;';
+11169  string = '"'!!strip(ROLE)!!'"';
+11170  put '   ROLE    = ' string ';';
+11171  string = '"'!!strip(FAMILY)!!'"';
+11172  put '   FAMILY  = ' string ';';
+11173  string = '"'!!strip(REPORT)!!'"';
+11174  put '   REPORT  = ' string ';';
+11175  string = '"'!!strip(LEVEL)!!'"';
+11176  put '   LEVEL   = ' string ';';
+11177  string = '"'!!strip(ORDER)!!'"';
+11178  put '   ORDER   = ' string ';';
+11179  put 'end;';
+11180  end;
+11181  if percentmiss>50 and ROLE ne 'TARGET' then do;
+11182  string = '"'!!strip(NAME)!!'"';
+11183  put 'if NAME = ' string ' then do;';
+11184  put '   ROLE ="REJECTED";';
+11185  put '   COMMENT = "Percent of missing exceeds 50%";';
+11186  put 'end;';
+11187  end;
+11188  run;
+
+NOTE: The file #LN00154 is:
+      Filename=C:\Users\Oscar\Documents\Document\File need to backup\UM\Y4S1\Data Mining and Warehousing\GroupAssignment\GroupAssignment_2023\Workspaces\EMWS2\Impt3\CDELTA_TRAIN.sas,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=06Jan2024:00:56:48,
+      Create Time=06Jan2024:00:52:14
+
+NOTE: 18 records were written to the file #LN00154.
+      The minimum record length was 4.
+      The maximum record length was 38.
+NOTE: There were 14 observations read from the data set EMWS2.IMPT3_META.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+11189  filename emflow "C:\Users\Oscar\Documents\Document\File need to backup\UM\Y4S1\Data Mining and Warehousing\GroupAssignment\GroupAssignment_2023\Workspaces\EMWS2\Impt3\EMFLOWSCORE.sas";
+11190  *------------------------------------------------------------*;
+11191  * Impt3: Scoring DATA data;
+11192  *------------------------------------------------------------*;
+11193  data EMWS2.Impt3_TRAIN
+11194  / view=EMWS2.Impt3_TRAIN
+11195  ;
+11196  set EMWS2.Filter2_TRAIN
+11197  ;
+11198  %inc emflow;
+11210  run;
+
+NOTE: DATA STEP view saved on file EMWS2.IMPT3_TRAIN.
+NOTE: A stored DATA STEP view cannot run under a different operating system.
+NOTE: View EMWS2.FILTER2_TRAIN.VIEW used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+11211  quit;
+11212  filename emflow;
+NOTE: Fileref EMFLOW has been deassigned.
+
+11213  filename emflow "C:\Users\Oscar\Documents\Document\File need to backup\UM\Y4S1\Data Mining and Warehousing\GroupAssignment\GroupAssignment_2023\Workspaces\EMWS2\Impt3\EMFLOWSCORE.sas";
+11214  *------------------------------------------------------------*;
+11215  * Impt3: Scoring TEST data;
+11216  *------------------------------------------------------------*;
+11217  data EMWS2.Impt3_TEST
+11218  / view=EMWS2.Impt3_TEST
+11219  ;
+11220  set EMWS2.Filter2_TEST
+11221  ;
+11222  %inc emflow;
+11234  run;
+
+NOTE: DATA STEP view saved on file EMWS2.IMPT3_TEST.
+NOTE: A stored DATA STEP view cannot run under a different operating system.
+NOTE: View EMWS2.FILTER2_TEST.VIEW used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.03 seconds
+      
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.03 seconds
+      
+
+11235  quit;
+11236  filename emflow;
+NOTE: Fileref EMFLOW has been deassigned.
+
+11237  *------------------------------------------------------------*;
+11238  * Impt3: Computing metadata for TRAIN data;
+11239  *------------------------------------------------------------*;
+
+NOTE: View EMWS2.IMPT3_TRAIN.VIEW used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.03 seconds
+      
+NOTE: View EMWS2.IMPT3_TRAIN.VIEW used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.01 seconds
+      
+NOTE: View EMWS2.IMPT3_TEST.VIEW used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      

@@ -1,0 +1,59 @@
+*------------------------------------------------------------*
+* Score Log
+Date:                January 06, 2024
+Time:                00:58:36
+*------------------------------------------------------------*
+11500  *------------------------------------------------------------*;
+11501  * Stat5: Scoring DATA data;
+11502  *------------------------------------------------------------*;
+11503  data EMWS2.Stat5_TRAIN
+11504  / view=EMWS2.Stat5_TRAIN
+11505  ;
+11506  set EMWS2.Part_TRAIN
+11507  ;
+11508  run;
+
+NOTE: DATA STEP view saved on file EMWS2.STAT5_TRAIN.
+NOTE: A stored DATA STEP view cannot run under a different operating system.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+11509  quit;
+
+11510  *------------------------------------------------------------*;
+11511  * Stat5: Scoring TEST data;
+11512  *------------------------------------------------------------*;
+11513  data EMWS2.Stat5_TEST
+11514  / view=EMWS2.Stat5_TEST
+11515  ;
+11516  set EMWS2.Part_TEST
+11517  ;
+11518  run;
+
+NOTE: DATA STEP view saved on file EMWS2.STAT5_TEST.
+NOTE: A stored DATA STEP view cannot run under a different operating system.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+11519  quit;
+
+11520  *------------------------------------------------------------*;
+11521  * Stat5: Computing metadata for TRAIN data;
+11522  *------------------------------------------------------------*;
+
+NOTE: View EMWS2.STAT5_TRAIN.VIEW used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+      
+NOTE: View EMWS2.STAT5_TRAIN.VIEW used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+NOTE: View EMWS2.STAT5_TEST.VIEW used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      

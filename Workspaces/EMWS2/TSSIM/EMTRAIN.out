@@ -1,0 +1,22 @@
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+Variable Summary
+
+          Measurement    Frequency
+ Role        Level         Count
+
+INPUT      INTERVAL          11   
+TARGET     INTERVAL           1   
+TIMEID     INTERVAL           1   
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+
+                                                                                                                                    apply_
+                                                                 length                                                             start_
+Obs       name            START          END    timeinterval    OfCycle    label    timeformat                        role          end         timeformattype
+
+ 1     TastingDate    01JAN2020    31DEC2022        DAY            7                DATE9.0                           TIMEID        N                DATE     

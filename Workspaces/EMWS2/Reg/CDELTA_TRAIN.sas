@@ -1,0 +1,15 @@
+if ROLE in('INPUT', 'REJECTED') then do;
+if upcase(NAME) in(
+'IMP_SULPHATES'
+'LG10_ALCOHOL'
+'LG10_CHLORIDES'
+'LG10_DENSITY'
+'LG10_FREE_SULFUR_DIOXIDE'
+'LG10_TOTAL_SULFUR_DIOXIDE'
+'LG10_VOLATILE_ACIDITY'
+) then ROLE='INPUT';
+else do;
+ROLE='REJECTED';
+COMMENT = "Reg: Rejected using forward selection";
+end;
+end;

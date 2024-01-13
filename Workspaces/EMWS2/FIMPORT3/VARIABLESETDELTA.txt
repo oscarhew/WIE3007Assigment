@@ -1,0 +1,12 @@
+if NAME="quality" then do;
+ROLE="TARGET";
+LEVEL="NOMINAL";
+ORDER="";
+DROP="N";
+end;
+if NAME="residual_sugar" then do;
+ROLE="REJECTED";
+LEVEL="INTERVAL";
+ORDER="";
+DROP="N";
+end;

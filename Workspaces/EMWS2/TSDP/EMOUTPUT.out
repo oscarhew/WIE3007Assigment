@@ -1,0 +1,42 @@
+*------------------------------------------------------------*
+User:                Oscar
+Date:                January 06, 2024
+Time:                00:17:45
+*------------------------------------------------------------*
+* Training Output
+*------------------------------------------------------------*
+ 
+ 
+ 
+ 
+Variable Summary
+ 
+            Measurement    Frequency
+  Role         Level         Count
+ 
+CROSSID      NOMINAL            2
+REJECTED     INTERVAL          16
+REJECTED     NOMINAL            1
+TARGET       INTERVAL           1
+TIMEID       INTERVAL           1
+
+
+*------------------------------------------------------------*
+* Score Output
+*------------------------------------------------------------*
+
+
+*------------------------------------------------------------*
+* Report Output
+*------------------------------------------------------------*
+ 
+ 
+ 
+The MEANS Procedure
+ 
+Analysis Variable : _TSID_ Time Series ID
+ 
+     Maximum
+------------
+  12.0000000
+------------

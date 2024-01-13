@@ -1,0 +1,24 @@
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+Variable Summary
+
+            Measurement    Frequency
+Role           Level         Count
+
+INPUT        INTERVAL          10   
+INPUT        NOMINAL            1   
+REJECTED     INTERVAL           1   
+TARGET       NOMINAL            1   
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+Sampling Summary
+
+                                    Number of
+ Type           Data Set          Observations
+
+DATA      EMWS2.FIMPORT3_train        6497    
+SAMPLE    EMWS2.Smpl_DATA              650    

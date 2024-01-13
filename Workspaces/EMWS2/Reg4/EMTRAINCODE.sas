@@ -1,0 +1,98 @@
+*------------------------------------------------------------*;
+* Reg4: Create decision matrix;
+*------------------------------------------------------------*;
+data WORK.quality(label="quality");
+  length   quality                              8
+           ;
+
+ quality=3;
+output;
+ quality=9;
+output;
+ quality=5.80985373364126;
+output;
+;
+run;
+proc datasets lib=work nolist;
+modify quality(type=PROFIT label=quality);
+run;
+quit;
+data EM_DMREG / view=EM_DMREG;
+set EMWS2.Trans_TRAIN(keep=
+IMP_pH IMP_sulphates LG10_alcohol LG10_chlorides LG10_citric_acid LG10_density
+LG10_fixed_acidity LG10_free_sulfur_dioxide LG10_total_sulfur_dioxide
+LG10_volatile_acidity TasterName TastingDate category quality);
+run;
+*------------------------------------------------------------* ;
+* Reg4: DMDBClass Macro ;
+*------------------------------------------------------------* ;
+%macro DMDBClass;
+    TasterName(ASC) category(ASC)
+%mend DMDBClass;
+*------------------------------------------------------------* ;
+* Reg4: DMDBVar Macro ;
+*------------------------------------------------------------* ;
+%macro DMDBVar;
+    IMP_pH IMP_sulphates LG10_alcohol LG10_chlorides LG10_citric_acid LG10_density
+   LG10_fixed_acidity LG10_free_sulfur_dioxide LG10_total_sulfur_dioxide
+   LG10_volatile_acidity TastingDate quality
+%mend DMDBVar;
+*------------------------------------------------------------*;
+* Reg4: Create DMDB;
+*------------------------------------------------------------*;
+proc dmdb batch data=WORK.EM_DMREG
+dmdbcat=WORK.Reg4_DMDB
+maxlevel = 513
+;
+class %DMDBClass;
+var %DMDBVar;
+target
+quality
+;
+run;
+quit;
+*------------------------------------------------------------*;
+* Reg4: Run DMREG procedure;
+*------------------------------------------------------------*;
+proc dmreg data=EM_DMREG dmdbcat=WORK.Reg4_DMDB
+outest = EMWS2.Reg4_EMESTIMATE
+outterms = EMWS2.Reg4_OUTTERMS
+outmap= EMWS2.Reg4_MAPDS namelen=200
+;
+class
+TasterName
+category
+;
+model quality =
+IMP_pH
+IMP_sulphates
+LG10_alcohol
+LG10_chlorides
+LG10_citric_acid
+LG10_density
+LG10_fixed_acidity
+LG10_free_sulfur_dioxide
+LG10_total_sulfur_dioxide
+LG10_volatile_acidity
+TasterName
+TastingDate
+category
+/error=normal
+coding=DEVIATION
+nodesignprint
+;
+;
+score data=EMWS2.Trans_TEST
+out=_null_
+outfit=EMWS2.Reg4_FITTEST
+role = TEST
+;
+code file="C:\Users\Oscar\Documents\Document\File need to backup\UM\Y4S1\Data Mining and Warehousing\GroupAssignment\GroupAssignment_2023\Workspaces\EMWS2\Reg4\EMPUBLISHSCORE.sas"
+group=Reg4
+;
+code file="C:\Users\Oscar\Documents\Document\File need to backup\UM\Y4S1\Data Mining and Warehousing\GroupAssignment\GroupAssignment_2023\Workspaces\EMWS2\Reg4\EMFLOWSCORE.sas"
+group=Reg4
+residual
+;
+run;
+quit;

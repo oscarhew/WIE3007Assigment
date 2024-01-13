@@ -1,0 +1,63 @@
+ 
+                                                                                                                                                                                                                                                                
+ 
+Filter Limits for Interval Variables
+(maximum 500 observations printed)
+
+                                                           Keep
+                                                Filter    Missing
+ Variable      Role      Minimum     Maximum    Method    Values     Label
+
+TastingDate    INPUT    21512.52    23415.31    STDDEV       Y            
+ 
+                                                                                                                                                                                                                                                                
+ 
+Excluded Class Values
+(maximum 500 observations printed)
+
+                                       Train      Train              Filter
+ Variable     Role      Level          Count     Percent    Label    Method
+
+TasterName    INPUT    _BLANK_             2    0.038476                   
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+Number Of Observations
+
+Data
+Role     Filtered    Excluded    DATA
+
+TRAIN      5196          2       5198
+ 
+                                                                                                                                                                                                                                                                
+ 
+Statistics for Original and FILTERED Data
+(maximum 500 observations printed)
+
+Data Role=TRAIN Variable=TastingDate
+
+Statistics             Original     Filtered
+
+Non Missing             5198.00      5196.00
+Missing                    0.00         0.00
+Minimum                21915.00     21915.00
+Maximum                23010.00     23010.00
+Mean                   22463.91     22464.07
+Standard Deviation       317.13       317.09
+Skewness                   0.02         0.02
+Kurtosis                  -1.21        -1.21
+
+
+Data Role=TRAIN Variable=quality
+
+Statistics            Original    Filtered
+
+Non Missing            5198.00     5196.00
+Missing                   0.00        0.00
+Minimum                   3.00        3.00
+Maximum                   9.00        9.00
+Mean                      5.81        5.81
+Standard Deviation        0.88        0.88
+Skewness                  0.20        0.20
+Kurtosis                  0.17        0.18

@@ -1,0 +1,50 @@
+*------------------------------------------------------------*
+User:                Oscar
+Date:                January 06, 2024
+Time:                00:17:48
+*------------------------------------------------------------*
+* Training Output
+*------------------------------------------------------------*
+ 
+ 
+ 
+ 
+Variable Summary
+ 
+          Measurement    Frequency
+ Role        Level         Count
+ 
+INPUT      INTERVAL          12
+TIMEID     INTERVAL           1
+
+
+*------------------------------------------------------------*
+* Score Output
+*------------------------------------------------------------*
+
+
+*------------------------------------------------------------*
+* Report Output
+*------------------------------------------------------------*
+ 
+ 
+ 
+Exported Attributes for TRAIN Port
+(maximum 500 observations printed)
+ 
+Variable                 Measurement
+Name            Role        Level       Creator    Label
+ 
+TastingDate    TIMEID     INTERVAL
+_TS_01         TARGET     INTERVAL       TSDP      quality 1
+_TS_02         INPUT      INTERVAL       TSDP      quality 2
+_TS_03         INPUT      INTERVAL       TSDP      quality 3
+_TS_04         INPUT      INTERVAL       TSDP      quality 4
+_TS_05         INPUT      INTERVAL       TSDP      quality 5
+_TS_06         INPUT      INTERVAL       TSDP      quality 6
+_TS_07         INPUT      INTERVAL       TSDP      quality 7
+_TS_08         INPUT      INTERVAL       TSDP      quality 8
+_TS_09         INPUT      INTERVAL       TSDP      quality 9
+_TS_10         INPUT      INTERVAL       TSDP      quality 10
+_TS_11         INPUT      INTERVAL       TSDP      quality 11
+_TS_12         INPUT      INTERVAL       TSDP      quality 12

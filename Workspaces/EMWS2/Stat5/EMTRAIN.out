@@ -1,0 +1,84 @@
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+Variable Summary
+
+            Measurement    Frequency
+Role           Level         Count
+
+ID           INTERVAL           1   
+INPUT        INTERVAL          11   
+INPUT        NOMINAL            2   
+RESIDUAL     INTERVAL           1   
+TARGET       INTERVAL           1   
+ 
+                                                                                                                                                                                                                                                                
+ 
+Variable Levels Summary
+(maximum 500 observations printed)
+
+                     Frequency
+Variable     Role      Count
+
+_dataobs_     ID        5198  
+ 
+                                                                                                                                                                                                                                                                
+ 
+Class Variable Summary Statistics
+(maximum 500 observations printed)
+
+Data Role=TRAIN
+
+                                Number
+Data      Variable                of                             Mode                  Mode2
+Role        Name       Role     Levels    Missing    Mode     Percentage    Mode2    Percentage
+
+TRAIN    TasterName    INPUT       7         2       Charl      17.58       Frank      17.56   
+TRAIN    category      INPUT       2         0       white      75.32       red        24.68   
+ 
+                                                                                                                                                                                                                                                                
+ 
+Interval Variable Summary Statistics
+(maximum 500 observations printed)
+
+Data Role=TRAIN
+
+                                                Standard          Non
+Variable                Role            Mean    Deviation     Missing     Missing     Minimum      Median     Maximum    Skewness    Kurtosis
+
+TastingDate             INPUT       22463.91    317.1328         5198           0       21915       22460       23010     0.02376    -1.20683
+alcohol                 INPUT        10.4908    1.187494         5198           0           8        10.3        14.9    0.566292    -0.51683
+chlorides               INPUT       0.055825    0.034144         5198           0       0.012       0.047       0.611    5.529016    55.93934
+citric_acid             INPUT       0.316025    0.143675         5198           0           0        0.31        1.23    0.374469    1.444568
+density                 INPUT       0.994687    0.003004         5198           0     0.98711     0.99488     1.03898    0.634807    8.406742
+fixed_acidity           INPUT       7.217353    1.294422         5198           0         3.8           7        15.9    1.709652    5.026156
+free_sulfur_dioxide     INPUT       30.55329    17.92931         5198           0           1          29         289    1.375343    9.538213
+pH                      INPUT       3.218796    0.160513         5189           9        2.72        3.21        4.01    0.371557     0.30114
+sulphates               INPUT       0.530987    0.148516         5189           9        0.22        0.51           2    1.783509    8.466244
+total_sulfur_dioxide    INPUT       115.5143    56.27936         5198           0           6         118         440    -0.02152    -0.42561
+volatile_acidity        INPUT       0.340945    0.166396         5198           0        0.08        0.29        1.58     1.49349    2.815906
+residual_sugar          RESIDUAL    5.413428    4.753626         5198           0         0.6           3        65.8    1.518812    5.409416
+quality                 TARGET       5.80935     0.87666         5198           0           3           6           9     0.20326    0.174892
+ 
+                                                                                                                                                                                                                                                                
+ 
+Correlation Statistics
+(maximum 500 observations printed)
+
+Data Role=TRAIN Type=PEARSON Target=quality
+
+Input                   Correlation
+
+alcohol                    0.44527 
+citric_acid                0.08688 
+free_sulfur_dioxide        0.05664 
+sulphates                  0.04333 
+pH                         0.01541 
+TastingDate               -0.01241 
+residual_sugar            -0.03538 
+total_sulfur_dioxide      -0.03742 
+fixed_acidity             -0.06598 
+chlorides                 -0.19746 
+volatile_acidity          -0.25946 
+density                   -0.29687 

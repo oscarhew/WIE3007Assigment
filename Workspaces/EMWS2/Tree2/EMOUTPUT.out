@@ -1,0 +1,183 @@
+*------------------------------------------------------------*
+User:                Oscar
+Date:                January 06, 2024
+Time:                00:55:57
+*------------------------------------------------------------*
+* Training Output
+*------------------------------------------------------------*
+ 
+ 
+ 
+ 
+Variable Summary
+ 
+            Measurement    Frequency
+Role           Level         Count
+ 
+ID           INTERVAL           1
+INPUT        INTERVAL          11
+INPUT        NOMINAL            2
+RESIDUAL     INTERVAL           1
+SEQUENCE     INTERVAL           1
+TARGET       INTERVAL           1
+ 
+ 
+ 
+ 
+Predicted and decision variables
+ 
+Type         Variable           Label
+ 
+TARGET       quality
+PREDICTED    P_quality    Predicted: quality
+RESIDUAL     R_quality    Residual: quality
+
+
+*------------------------------------------------------------*
+* Score Output
+*------------------------------------------------------------*
+
+
+*------------------------------------------------------------*
+* Report Output
+*------------------------------------------------------------*
+ 
+ 
+ 
+Variable Importance
+ 
+                                                Number of
+                                                Splitting
+Variable Name           Label                     Rules           Importance
+ 
+alcohol                                              6                1.0000
+volatile_acidity        volatile acidity            10                0.6175
+free_sulfur_dioxide     free sulfur dioxide          4                0.3318
+total_sulfur_dioxide    total sulfur dioxide         4                0.2750
+sulphates                                            5                0.2728
+density                                              2                0.2583
+citric_acid             citric acid                  2                0.2242
+pH                                                   3                0.1841
+chlorides                                            1                0.1426
+fixed_acidity           fixed acidity                2                0.1414
+ 
+ 
+ 
+Tree Leaf Report
+ 
+Node               Training      Training    Training
+ Id     Depth    Observations     Average    Root ASE
+ 
+  9       3           447          5.70       0.68643
+ 73       6           435          5.97       0.79010
+ 61       6           423          5.36       0.58220
+ 66       6           319          5.78       0.69498
+ 79       6           278          6.55       0.72666
+ 58       6           274          5.17       0.54798
+ 54       6           267          5.81       0.66443
+ 75       6           231          6.10       0.74295
+ 51       5           228          6.86       0.76153
+ 36       5           203          4.96       0.53307
+ 63       6           186          5.11       0.51132
+ 64       6           180          5.63       0.71516
+ 60       6           173          5.61       0.69379
+ 38       5           170          5.21       0.67900
+ 47       5           163          5.92       0.84346
+ 55       6           160          6.09       0.75661
+ 74       6           156          6.53       0.77971
+ 62       6           136          5.38       0.59482
+ 72       6           133          6.31       0.67368
+ 77       6            70          6.40       0.68452
+ 48       5            68          6.79       0.63150
+ 69       6            62          5.87       0.77217
+ 24       4            57          5.33       0.77986
+ 52       5            55          6.15       0.58522
+ 56       6            46          7.24       0.47479
+ 33       5            40          5.98       0.61186
+ 71       6            35          4.71       0.91250
+ 70       6            34          5.44       0.69414
+ 67       6            33          5.24       0.77968
+ 68       6            32          6.59       0.70086
+ 53       5            21          6.81       0.49943
+ 41       5            19          5.00       0.72548
+ 78       6            16          7.25       0.75000
+ 25       4             8          4.00       0.86603
+ 57       6             8          6.00       0.00000
+ 30       5             7          4.43       0.72843
+ 49       5             7          5.86       0.63888
+ 65       6             7          4.57       0.49487
+ 76       6             6          7.67       0.47140
+ 59       6             5          4.00       0.63246
+ 
+ 
+ 
+ 
+Fit Statistics
+ 
+Target=quality Target Label=' '
+ 
+   Fit
+Statistics    Statistics Label                Train       Test
+ 
+  _NOBS_      Sum of Frequencies            5198.00    1299.00
+  _MAX_       Maximum Absolute Error           3.37       2.97
+  _SSE_       Sum of Squared Errors         2456.10     685.29
+  _ASE_       Average Squared Error            0.47       0.53
+  _RASE_      Root Average Squared Error       0.69       0.73
+  _DIV_       Divisor for ASE               5198.00    1299.00
+  _DFT_       Total Degrees of Freedom      5198.00        .
+ 
+ 
+ 
+ 
+Assessment Score Rankings
+ 
+Data Role=TRAIN Target Variable=quality Target Label=' '
+ 
+           Number of       Mean        Mean
+Depth    Observations     Target    Predicted
+ 
+   5          296        6.95270     6.95270
+  10          399        6.60902     6.60902
+  15          156        6.53205     6.53205
+  20          203        6.33990     6.33990
+  25          286        6.11189     6.11189
+  30          643        6.00000     6.00000
+  40          163        5.92025     5.92025
+  45          336        5.81845     5.81845
+  50          319        5.78370     5.78370
+  55          447        5.69575     5.69575
+  65          180        5.62778     5.62778
+  70          343        5.50146     5.50146
+  75          423        5.35934     5.35934
+  85          260        5.24231     5.24231
+  90          274        5.16788     5.16788
+  95          408        5.03186     5.03186
+ 100           62        4.51613     4.51613
+ 
+ 
+ 
+ 
+Assessment Score Distribution
+ 
+Data Role=TRAIN Target Variable=quality Target Label=' '
+ 
+  Range for         Mean        Mean        Number of      Model
+  Predicted        Target    Predicted    Observations     Score
+ 
+7.483 -  7.667    7.66667     7.66667            6        7.57500
+7.117 -  7.300    7.24194     7.24194           62        7.20833
+6.750 -  6.933    6.83912     6.83912          317        6.84167
+6.567 -  6.750    6.59375     6.59375           32        6.65833
+6.383 -  6.567    6.52381     6.52381          504        6.47500
+6.200 -  6.383    6.30827     6.30827          133        6.29167
+6.017 -  6.200    6.10538     6.10538          446        6.10833
+5.833 -  6.017    5.94825     5.94825          715        5.92500
+5.650 -  5.833    5.75121     5.75121         1033        5.74167
+5.467 -  5.650    5.61756     5.61756          353        5.55833
+5.283 -  5.467    5.36615     5.36615          650        5.37500
+5.100 -  5.283    5.16742     5.16742          663        5.19167
+4.917 -  5.100    4.96396     4.96396          222        5.00833
+4.550 -  4.733    4.69048     4.69048           42        4.64167
+4.367 -  4.550    4.42857     4.42857            7        4.45833
+4.000 -  4.183    4.00000     4.00000           13        4.09167

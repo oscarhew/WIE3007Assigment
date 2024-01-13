@@ -1,0 +1,52 @@
+*------------------------------------------------------------*
+User:                Oscar
+Date:                January 06, 2024
+Time:                00:56:49
+*------------------------------------------------------------*
+* Training Output
+*------------------------------------------------------------*
+ 
+ 
+ 
+ 
+Variable Summary
+ 
+          Measurement    Frequency
+ Role        Level         Count
+ 
+INPUT      INTERVAL          11
+INPUT      NOMINAL            2
+TARGET     INTERVAL           1
+
+
+*------------------------------------------------------------*
+* Score Output
+*------------------------------------------------------------*
+
+
+*------------------------------------------------------------*
+* Report Output
+*------------------------------------------------------------*
+ 
+ 
+ 
+Imputation Summary
+Number Of Observations
+ 
+                                                                                     Number of
+Variable     Impute    Imputed           Impute             Measurement                Missing
+Name         Method    Variable          Value     Role        Level       Label     for TRAIN
+ 
+pH            MEAN     IMP_pH           3.21880    INPUT     INTERVAL                        9
+sulphates     MEAN     IMP_sulphates    0.53082    INPUT     INTERVAL                        9
+ 
+ 
+ 
+ 
+Variable Distribution Training Data
+ 
+        Number of
+          Missing    Number of    Percent of
+Obs     for TRAIN    Variables     Variables
+ 
+ 1              9        2            100

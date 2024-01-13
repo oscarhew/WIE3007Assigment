@@ -1,0 +1,1270 @@
+*------------------------------------------------------------*
+* Score Log
+Date:                January 06, 2024
+Time:                00:55:55
+*------------------------------------------------------------*
+16627  %let EMEXCEPTIONSTRING=;
+16628  *------------------------------------------------------------*;
+16629  * SCORE: Tree2;
+16630  *------------------------------------------------------------*;
+16631  %let EM_ACTION = SCORE;
+16632  %let syscc = 0;
+16633  %macro main;
+16634  
+16635    %if %upcase(&EM_ACTION) = CREATE %then %do;
+16636      filename temp catalog 'sashelp.emmodl.tree_create.source';
+16637      %include temp;
+16638      filename temp;
+16639  
+16640      %em_tree_create;
+16641    %end;
+16642  
+16643     %else
+16644     %if %upcase(&EM_ACTION) = TRAIN %then %do;
+16645  
+16646         filename temp catalog 'sashelp.emmodl.tree_train.source';
+16647         %include temp;
+16648         filename temp;
+16649         %em_tree_train;
+16650     %end;
+16651  
+16652    %else
+16653    %if %upcase(&EM_ACTION) = SCORE %then %do;
+16654      filename temp catalog 'sashelp.emmodl.tree_score.source';
+16655      %include temp;
+16656      filename temp;
+16657  
+16658      %em_tree_score;
+16659  
+16660    %end;
+16661  
+16662    %else
+16663    %if %upcase(&EM_ACTION) = REPORT %then %do;
+16664  
+16665         filename temp catalog 'sashelp.emmodl.tree_report.source';
+16666         %include temp;
+16667         filename temp;
+16668  
+16669         %em_tree_report;
+16670     %end;
+16671  
+16672    %else
+16673    %if %upcase(&EM_ACTION) = OPENINT %then %do;
+16674  
+16675         filename temp catalog 'sashelp.emmodl.tree_actions.source';
+16676         %include temp;
+16677         filename temp;
+16678         %EM_TREE_OPENTREEVIEWER;
+16679  
+16680     %end;
+16681  
+16682    %else
+16683    %if %upcase(&EM_ACTION) = CLOSEINT %then %do;
+16684  
+16685         filename temp catalog 'sashelp.emmodl.tree_actions.source';
+16686         %include temp;
+16687         filename temp;
+16688         %EM_TREE_CLOSETREEVIEWER;
+16689  
+16690     %end;
+16691  
+16692  
+16693     %doendm:
+16694  %mend main;
+16695  
+16696  %main;
+NOTE: %INCLUDE (level 1) file TEMP is file SASHELP.EMMODL.TREE_SCORE.SOURCE.
+16698 +%macro em_tree_score;
+16700 +   /* determine if multiple targets will be processed */
+16701 +   %let em_tree_multipleTargets=N;
+16702 +   %let em_tree_numTarget=1;
+16703 +   %if "&EM_PROPERTY_USEMULTIPLETARGET" eq "Y" %then %do;
+16704 +      /* determine if there are any ordinal target variables - if so, multiple targets are not supported */
+16705 +      %if &EM_NUM_ORDINAL_TARGET gt 0 %then %do;
+16706 +         %let em_tree_multipleTargets=N;
+16707 +      %end;
+16708 +      %else %do;
+16709 +         /* create macro array of targets  */
+16710 +         data _null_;
+16711 +           set &EM_DATA_VARIABLESET(where=(ROLE='TARGET' AND LEVEL^='ORDINAL')) end=eof;
+16712 +           call symput('em_tree_targetVars'!!strip(put(_N_, BEST.)), strip(Name));
+16713 +           if eof then
+16714 +             call symput('em_tree_numTarget', strip(put(_N_, BEST.)));
+16715 +        run;
+16717 +        %if &em_tree_numTarget gt 1 %then %do;
+16718 +           %let em_tree_multipleTargets=Y;
+16719 +        %end;
+16720 +      %end;
+16721 +   %end;
+16723 +   /* build flow and publish scoring code */
+16724 +   %EM_GETNAME(key=TREEFLOW, type=FILE, extension=sas);
+16725 +   %EM_GETNAME(key=TREEPUBLISH, type=FILE, extension=sas);
+16727 +   filename treeflow "&EM_USER_TREEFLOW";
+16728 +   filename treepub "&EM_USER_TREEPUBLISH";
+16730 +   filename flowref  "&EM_FILE_EMFLOWSCORECODE";
+16731 +   filename pubref   "&EM_FILE_EMPUBLISHSCORECODE";
+16733 +   %em_copyfile(infref=treeflow, outfref=flowref);
+16734 +   %em_copyfile(infref=treepub, outfref=pubref);
+16736 +   filename treeflow;
+16737 +   filename treepub;
+16739 +   /* if priors are used, add code to generate unadjusted residuals in export */
+16740 +   %let useAdjPriors = N;
+16741 +   data _null_;
+16742 +     set &EM_DEC_DECMETA(where=(_TYPE_="DECPRIOR"));
+16743 +     if USE="Y" then call symput('useAdjPriors', 'Y');
+16744 +   run;
+16745 +   %if (("&em_tree_multipleTargets" eq "N") AND ("&useAdjPriors" eq "Y")) %then %do;
+16746 +      filename temp catalog 'sashelp.emutil.em_makeunadjustedresidualvars.source';
+16747 +      %include temp;
+16748 +      filename temp;
+16750 +      %EM_GETNAME(key=adjResidualCode, type=FILE, extension=sas);
+16751 +      filename adjref "&EM_USER_adjResidualCode";
+16752 +      %makeUnadjustedResidualVars(target=%EM_TARGET, decmeta=&EM_DEC_DECMETA, fref=adjref);
+16754 +      %em_copyfile(infref=adjref, outfref=flowref, append=Y);
+16756 +      filename adjref;
+16757 +   %end;
+16759 +   /* LEAF */
+16760 +   %if "&EM_PROPERTY_LEAFID" eq "Y" %then %do;
+16761 +      data _null_;
+16762 +        file flowref mod;
+16763 +        put 'drop _LEAF_;';
+16764 +      run;
+16766 +      data _null_;
+16767 +        file pubref mod;
+16768 +        put 'drop _LEAF_;';
+16769 +      run;
+16771 +   %end;
+16773 +   filename flowref;
+16774 +   filename pubref;
+16776 +   /* em_metachange code */
+16777 +   %if "&EM_PROPERTY_LEAFID" eq "Y" %then %do;
+16778 +     %EM_METACHANGE(name=_NODE_, role=&EM_PROPERTY_NODEROLE, LEVEL=NOMINAL);
+16779 +   %end;
+16781 +   /* variable selection based on importance stat    */
+16782 +   %if "&EM_PROPERTY_VARSELECTION" eq "Y" %then %do;
+16783 +     %EM_GETNAME(key=OUTIMPORT, type=DATA);
+16784 +     %let dsid = %sysfunc(open(&EM_USER_OUTIMPORT(where=(IMPORTANCE<0.05))));
+16785 +     %let varnum = %sysfunc(varnum(&dsid, NAME));
+16786 +     %let obs = %sysfunc(fetch(&dsid));
+16787 +     %do %while(&obs=0);
+16788 +       %let temp = %nrbquote(%sysfunc(getvarc(&dsid, &varnum)));
+16789 +       %let varname = %nrbquote(%sysfunc(tranwrd(&temp,  %str(%"),"")));
+16790 +       %EM_METACHANGE(name=&varname, role=REJECTED);
+16791 +       %let obs = %sysfunc(fetch(&dsid));
+16792 +     %end;
+16793 +     %if &dsid %then %let dsid=%sysfunc(close(&dsid));
+16794 +   %end;
+16796 +   /* set Q_ varaibles to role of ASSESS when in the presense of prior probabilities */
+16797 +   %if %sysfunc(exist(&EM_DEC_DECMETA)) %then %do;
+16798 +    %let tree_pred_vars = ;
+16799 +    %let tree_pred_lvl =;
+16800 +    %let numpred= 0;
+16802 +    data _null_;
+16803 +     set &EM_DEC_DECMETA(where=(_TYPE_="PREDICTED")) end=eof;
+16804 +     call symput('tree_pred_vars'!!strip(put(_N_, BEST.)), strip(VARIABLE));
+16805 +     call symput('tree_pred_lvl'!!strip(put(_N_, BEST.)), strip(LEVEL));
+16806 +     if eof then
+16807 +       call symput('numpred', strip(put(_N_, BEST.)));
+16808 +    run;
+16809 +   %end;
+16811 +   %if &numpred ne 0 %then %do;
+16812 +    %do i=1 %to &numpred;
+16813 +      %let qpred = Q%substr(&&tree_pred_vars&i,2);
+16814 +      %EM_METACHANGE(name=&qpred, role=ASSESS);
+16815 +    %end;
+16816 +   %end;
+16818 +   /* determine if multiple targets will be processed */
+16819 +   %let em_tree_multipleTargets=N;
+16820 +   %let em_tree_numTarget=1;
+16821 +   %if "&EM_PROPERTY_USEMULTIPLETARGET" eq "Y" %then %do;
+16822 +      /* determine if there are any ordinal target variables - if so, multiple targets are not supported */
+16823 +      %if &EM_NUM_ORDINAL_TARGET gt 0 %then %do;
+16824 +         %let em_tree_multipleTargets=N;
+16825 +      %end;
+16826 +      %else %do;
+16827 +        data _null_;
+16828 +          set &EM_DATA_VARIABLESET(where=(ROLE='TARGET' AND LEVEL^='ORDINAL')) end=eof;
+16829 +          if eof then
+16830 +            call symput('em_tree_numTarget', strip(put(_N_, BEST.)));
+16831 +        run;
+16833 +        %if &em_tree_numTarget gt 1 %then %do;
+16834 +           %let em_tree_multipleTargets=Y;
+16835 +        %end;
+16836 +     %end;
+16837 +   %end;
+16839 +   /* need to include this code to do the %em_report for OUTIMPORT here instead of in Report code so _loop data set is created when group processing */
+16840 +   %if "&em_tree_multipleTargets" eq "N" %then %do;
+16842 +      /* variable importance */
+16843 +      %EM_GETNAME(key=OUTIMPORT, type=DATA);
+16844 +      %if %sysfunc(exist(&EM_USER_OUTIMPORT)) eq 1 %then %do;
+16846 +         %let validexist=0;
+16847 +         %if (("&EM_IMPORT_VALIDATE" ne "") AND (%sysfunc(exist(&EM_IMPORT_VALIDATE)) or %sysfunc(exist(&EM_IMPORT_VALIDATE,VIEW)))) %then %do;
+16848 +           %let validexist=1;
+16849 +         %end;
+16851 +         /* determine if vars exists - properties could indicate they are they but freeze=Y would mean the node wasn't retrained */
+16852 +         /* and the columns may not be generated                                                                                 */
+16853 +         %let em_tree_cvexists=;
+16854 +         %let em_tree_surrexists=.;
+16855 +         data _null_;
+16856 +            set &EM_USER_OUTIMPORT (obs=2) end=eof;
+16857 +            if eof then do ;
+16858 +               call symput("em_tree_cvexists" , strip(put(cvimportance,best.))) ;
+16859 +               call symput("em_tree_surrexists", strip(put(nsurrogates, best.)));
+16860 +            end;
+16861 +         run;
+16863 +         data &EM_USER_OUTIMPORT;
+16864 +            set &EM_USER_OUTIMPORT;
+16866 +            /* format columns based on Precison value specified */
+16867 +            format importance 15.&EM_PROPERTY_PRECISION
+16868 +                 %if &validexist %then %do;
+16869 +                   vimportance ratio 15.&EM_PROPERTY_PRECISION
+16870 +                 %end;
+16871 +                 %if "&EM_TREE_CVEXISTS" ne "." %then %do;
+16872 +                   cvimportance vimportance ratio 15.&EM_PROPERTY_PRECISION
+16873 +                 %end;
+16874 +            ;
+16875 +            label  NAME       = "%sysfunc(sasmsg(sashelp.dmine, meta_name_vlabel, noquote))"
+16876 +                 LABEL        = "%sysfunc(sasmsg(sashelp.dmine, meta_label_vlabel, noquote))"
+16877 +                 NRULES       = "%sysfunc(sasmsg(sashelp.dmine, rpt_nrules_vlabel, noquote))"
+16878 +                 IMPORTANCE   = "%sysfunc(sasmsg(sashelp.dmine, rpt_importance_vlabel, noquote))"
+16879 +                 %if "&em_tree_surrexists" ne "" %then %do;
+16880 +                   NSURROGATES  = "%sysfunc(sasmsg(sashelp.dmine, rpt_nsurrogates_vlabel, noquote))"
+16881 +                 %end;
+16882 +                 %if &validexist %then %do;
+16883 +                   VIMPORTANCE = "%sysfunc(sasmsg(sashelp.dmine, rpt_vimportance_vlabel, noquote))"
+16884 +                   RATIO       = "%sysfunc(sasmsg(sashelp.dmine, rpt_ratio_vlabel, noquote))"
+16885 +                 %end;
+16886 +                 %if "&EM_TREE_CVEXISTS" ne "" %then %do;
+16887 +                   VIMPORTANCE = "%sysfunc(sasmsg(sashelp.dmine, rpt_vimportance_vlabel, noquote))"
+16888 +                   CVIMPORTANCE =  "%sysfunc(sasmsg(sashelp.dmine, rpt_cvimport_vlabel, noquote))"
+16889 +                   CVRULES= "%sysfunc(sasmsg(sashelp.dmine, rpt_cvrules_vlabel, noquote))"
+16890 +                   RATIO = "%sysfunc(sasmsg(sashelp.dmine, rpt_ratio_vlabel, noquote))"
+16891 +                 %end;
+16892 +            ;
+16893 +         run;
+16895 +         %EM_REPORT(key=OUTIMPORT, viewtype=DATA, block=MODEL, description=IMPORTANCE, autodisplay=N);
+16896 +      %end;
+16897 +   %end;
+16899 +   %doendm:
+16900 +%mend em_tree_score;
+NOTE: %INCLUDE (level 1) ending.
+NOTE: Fileref TEMP has been deassigned.
+
+NOTE: The file FLOWREF is:
+      Filename=C:\Users\Oscar\Documents\Document\File need to backup\UM\Y4S1\Data Mining and Warehousing\GroupAssignment\GroupAssignment_2023\Workspaces\EMWS2\Tree2\EMFLOWSCORE.sas,
+      RECFM=V,LRECL=20000,File Size (bytes)=0,
+      Last Modified=06Jan2024:00:55:55,
+      Create Time=06Jan2024:00:55:55
+
+NOTE: 341 records were written to the file FLOWREF.
+      The minimum record length was 1.
+      The maximum record length was 66.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: The file PUBREF is:
+      Filename=C:\Users\Oscar\Documents\Document\File need to backup\UM\Y4S1\Data Mining and Warehousing\GroupAssignment\GroupAssignment_2023\Workspaces\EMWS2\Tree2\EMPUBLISHSCORE.sas,
+      RECFM=V,LRECL=20000,File Size (bytes)=0,
+      Last Modified=06Jan2024:00:55:55,
+      Create Time=06Jan2024:00:55:55
+
+NOTE: 336 records were written to the file PUBREF.
+      The minimum record length was 1.
+      The maximum record length was 66.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: Fileref TREEFLOW has been deassigned.
+NOTE: Fileref TREEPUB has been deassigned.
+
+NOTE: There were 0 observations read from the data set EMWS2.TREE2_QUALITY_DM.
+      WHERE _TYPE_='DECPRIOR';
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: The file FLOWREF is:
+      Filename=C:\Users\Oscar\Documents\Document\File need to backup\UM\Y4S1\Data Mining and Warehousing\GroupAssignment\GroupAssignment_2023\Workspaces\EMWS2\Tree2\EMFLOWSCORE.sas,
+      RECFM=V,LRECL=32767,File Size (bytes)=12161,
+      Last Modified=06Jan2024:00:55:55,
+      Create Time=06Jan2024:00:55:55
+
+NOTE: 1 record was written to the file FLOWREF.
+      The minimum record length was 12.
+      The maximum record length was 12.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: The file PUBREF is:
+      Filename=C:\Users\Oscar\Documents\Document\File need to backup\UM\Y4S1\Data Mining and Warehousing\GroupAssignment\GroupAssignment_2023\Workspaces\EMWS2\Tree2\EMPUBLISHSCORE.sas,
+      RECFM=V,LRECL=32767,File Size (bytes)=11995,
+      Last Modified=06Jan2024:00:55:55,
+      Create Time=06Jan2024:00:55:55
+
+NOTE: 1 record was written to the file PUBREF.
+      The minimum record length was 12.
+      The maximum record length was 12.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: Fileref FLOWREF has been deassigned.
+NOTE: Fileref PUBREF has been deassigned.
+
+NOTE: The data set WORK.EM_METACHANGE has 1 observations and 9 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set WORK.EM_METACHANGE.
+NOTE: The data set WORK.EM_METACHANGE has 2 observations and 9 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 2 observations read from the data set WORK.EM_METACHANGE.
+NOTE: The data set WORK.EM_METACHANGE has 3 observations and 9 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 3 observations read from the data set WORK.EM_METACHANGE.
+NOTE: The data set WORK.EM_METACHANGE has 4 observations and 9 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 1 observations read from the data set EMWS2.TREE2_QUALITY_DM.
+      WHERE _TYPE_='PREDICTED';
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: There were 4 observations read from the data set WORK.EM_METACHANGE.
+NOTE: The data set WORK.EM_METACHANGE has 5 observations and 9 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Variable cvimportance is uninitialized.
+NOTE: Variable nsurrogates is uninitialized.
+NOTE: There were 2 observations read from the data set EMWS2.TREE2_OUTIMPORT.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: Variable NSURROGATES is uninitialized.
+NOTE: Variable VIMPORTANCE is uninitialized.
+NOTE: Variable CVIMPORTANCE is uninitialized.
+NOTE: Variable CVRULES is uninitialized.
+NOTE: Variable RATIO is uninitialized.
+NOTE: There were 13 observations read from the data set EMWS2.TREE2_OUTIMPORT.
+NOTE: The data set EMWS2.TREE2_OUTIMPORT has 13 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+
+NOTE: The data set WORK.EM_USER_REPORT has 132 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+16901  
+16902  *------------------------------------------------------------*;
+16903  * End SCORE: Tree2;
+16904  *------------------------------------------------------------*;
+
+16905  proc sort data=WORK.EM_METACHANGE;
+16906  by key uname;
+16907  run;
+
+NOTE: There were 5 observations read from the data set WORK.EM_METACHANGE.
+NOTE: The data set WORK.EM_METACHANGE has 5 observations and 9 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+16908  filename x "C:\Users\Oscar\Documents\Document\File need to backup\UM\Y4S1\Data Mining and Warehousing\GroupAssignment\GroupAssignment_2023\Workspaces\EMWS2\Tree2\CDELTA_TRAIN.sas";
+16909  data _null_;
+16910  file x;
+16911  put 'if upcase(NAME) = "CATEGORY" then do;';
+16912  put 'ROLE = "REJECTED";';
+16913  put 'end;';
+16914  put 'else ';
+16915  put 'if upcase(NAME) = "Q_QUALITY" then do;';
+16916  put 'ROLE = "ASSESS";';
+16917  put 'end;';
+16918  put 'else ';
+16919  put 'if upcase(NAME) = "TASTERNAME" then do;';
+16920  put 'ROLE = "REJECTED";';
+16921  put 'end;';
+16922  put 'else ';
+16923  put 'if upcase(NAME) = "TASTINGDATE" then do;';
+16924  put 'ROLE = "REJECTED";';
+16925  put 'end;';
+16926  put 'else ';
+16927  put 'if upcase(NAME) = "_NODE_" then do;';
+16928  put 'ROLE = "SEGMENT";';
+16929  put 'LEVEL = "NOMINAL";';
+16930  put 'end;';
+16931  run;
+
+NOTE: The file X is:
+      Filename=C:\Users\Oscar\Documents\Document\File need to backup\UM\Y4S1\Data Mining and Warehousing\GroupAssignment\GroupAssignment_2023\Workspaces\EMWS2\Tree2\CDELTA_TRAIN.sas,
+      RECFM=V,LRECL=32767,File Size (bytes)=0,
+      Last Modified=06Jan2024:00:55:55,
+      Create Time=27Dec2023:22:13:48
+
+NOTE: 20 records were written to the file X.
+      The minimum record length was 4.
+      The maximum record length was 40.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+16932  filename x;
+NOTE: Fileref X has been deassigned.
+
+16933  filename emflow "C:\Users\Oscar\Documents\Document\File need to backup\UM\Y4S1\Data Mining and Warehousing\GroupAssignment\GroupAssignment_2023\Workspaces\EMWS2\Tree2\EMFLOWSCORE.sas";
+16934  *------------------------------------------------------------*;
+16935  * Tree2: Scoring DATA data;
+16936  *------------------------------------------------------------*;
+16937  data EMWS2.Tree2_TRAIN
+16938  / view=EMWS2.Tree2_TRAIN
+16939  ;
+16940  set EMWS2.Part_TRAIN
+16941  ;
+16942  %inc emflow;
+NOTE: %INCLUDE (level 1) file EMFLOW is file C:\Users\Oscar\Documents\Document\File need to backup\UM\Y4S1\Data Mining and Warehousing\GroupAssignment\GroupAssignment_2023\Workspaces\EMWS2\Tree2\EMFLOWSCORE.sas.
+16943 +****************************************************************;
+16944 +******             DECISION TREE SCORING CODE             ******;
+16945 +****************************************************************;
+16946 +
+16947 +******         LENGTHS OF NEW CHARACTER VARIABLES         ******;
+16948 +LENGTH _WARN_  $    4;
+16949 +
+16950 +******              LABELS FOR NEW VARIABLES              ******;
+16951 +label _NODE_ = 'Node' ;
+16952 +label _LEAF_ = 'Leaf' ;
+16953 +label P_quality = 'Predicted: quality' ;
+16954 +label R_quality = 'Residual: quality' ;
+16955 +label _WARN_ = 'Warnings' ;
+16956 +
+16957 +
+16958 +
+16959 +******             ASSIGN OBSERVATION TO NODE             ******;
+16960 +IF  NOT MISSING(alcohol ) AND
+16961 +                10.625 <= alcohol  THEN DO;
+16962 +  IF  NOT MISSING(alcohol ) AND
+16963 +            11.741666665 <= alcohol  THEN DO;
+16964 +    IF  NOT MISSING(free_sulfur_dioxide ) AND
+16965 +      free_sulfur_dioxide  <                 21.5 THEN DO;
+16966 +      IF  NOT MISSING(sulphates ) AND
+16967 +                       0.685 <= sulphates  THEN DO;
+16968 +        IF  NOT MISSING(total_sulfur_dioxide ) AND
+16969 +                           121 <= total_sulfur_dioxide  THEN DO;
+16970 +          _NODE_  =                   49;
+16971 +          _LEAF_  =                   35;
+16972 +          P_quality  =     5.85714285714285;
+16973 +          END;
+16974 +        ELSE DO;
+16975 +          _NODE_  =                   48;
+16976 +          _LEAF_  =                   34;
+16977 +          P_quality  =     6.79411764705882;
+16978 +          END;
+16979 +        END;
+16980 +      ELSE DO;
+16981 +        IF  NOT MISSING(density ) AND
+16982 +          density  <             0.990315 THEN DO;
+16983 +          IF  NOT MISSING(sulphates ) AND
+16984 +            sulphates  <                0.325 THEN DO;
+16985 +            _NODE_  =                   76;
+16986 +            _LEAF_  =                   31;
+16987 +            P_quality  =     7.66666666666666;
+16988 +            END;
+16989 +          ELSE DO;
+16990 +            _NODE_  =                   77;
+16991 +            _LEAF_  =                   32;
+16992 +            P_quality  =                  6.4;
+16993 +            END;
+16994 +          END;
+16995 +        ELSE DO;
+16996 +          _NODE_  =                   47;
+16997 +          _LEAF_  =                   33;
+16998 +          P_quality  =       5.920245398773;
+16999 +          END;
+17000 +        END;
+17001 +      END;
+17002 +    ELSE DO;
+17003 +      IF  NOT MISSING(fixed_acidity ) AND
+17004 +                        7.85 <= fixed_acidity  THEN DO;
+17005 +        IF  NOT MISSING(volatile_acidity ) AND
+17006 +                         0.395 <= volatile_acidity  THEN DO;
+17007 +          _NODE_  =                   53;
+17008 +          _LEAF_  =                   40;
+17009 +          P_quality  =     6.80952380952381;
+17010 +          END;
+17011 +        ELSE DO;
+17012 +          _NODE_  =                   52;
+17013 +          _LEAF_  =                   39;
+17014 +          P_quality  =     6.14545454545454;
+17015 +          END;
+17016 +        END;
+17017 +      ELSE DO;
+17018 +        IF  NOT MISSING(sulphates ) AND
+17019 +                         0.475 <= sulphates  THEN DO;
+17020 +          _NODE_  =                   51;
+17021 +          _LEAF_  =                   38;
+17022 +          P_quality  =     6.85526315789473;
+17023 +          END;
+17024 +        ELSE DO;
+17025 +          IF  NOT MISSING(fixed_acidity ) AND
+17026 +            fixed_acidity  <                 5.35 THEN DO;
+17027 +            _NODE_  =                   78;
+17028 +            _LEAF_  =                   36;
+17029 +            P_quality  =                 7.25;
+17030 +            END;
+17031 +          ELSE DO;
+17032 +            _NODE_  =                   79;
+17033 +            _LEAF_  =                   37;
+17034 +            P_quality  =     6.55035971223021;
+17035 +            END;
+17036 +          END;
+17037 +        END;
+17038 +      END;
+17039 +    END;
+17040 +  ELSE DO;
+17041 +    IF  NOT MISSING(volatile_acidity ) AND
+17042 +                     0.675 <= volatile_acidity  THEN DO;
+17043 +      IF  NOT MISSING(volatile_acidity ) AND
+17044 +                       1.015 <= volatile_acidity  THEN DO;
+17045 +        _NODE_  =                   25;
+17046 +        _LEAF_  =                   30;
+17047 +        P_quality  =                    4;
+17048 +        END;
+17049 +      ELSE DO;
+17050 +        _NODE_  =                   24;
+17051 +        _LEAF_  =                   29;
+17052 +        P_quality  =     5.33333333333333;
+17053 +        END;
+17054 +      END;
+17055 +    ELSE DO;
+17056 +      IF  NOT MISSING(free_sulfur_dioxide ) AND
+17057 +        free_sulfur_dioxide  <                 11.5 THEN DO;
+17058 +        IF  NOT MISSING(total_sulfur_dioxide ) AND
+17059 +                            36 <= total_sulfur_dioxide  THEN DO;
+17060 +          IF  NOT MISSING(alcohol ) AND
+17061 +            alcohol  <                11.05 THEN DO;
+17062 +            _NODE_  =                   70;
+17063 +            _LEAF_  =                   23;
+17064 +            P_quality  =     5.44117647058823;
+17065 +            END;
+17066 +          ELSE DO;
+17067 +            _NODE_  =                   71;
+17068 +            _LEAF_  =                   24;
+17069 +            P_quality  =     4.71428571428571;
+17070 +            END;
+17071 +          END;
+17072 +        ELSE DO;
+17073 +          IF  NOT MISSING(volatile_acidity ) AND
+17074 +            volatile_acidity  <                0.365 THEN DO;
+17075 +            _NODE_  =                   68;
+17076 +            _LEAF_  =                   21;
+17077 +            P_quality  =              6.59375;
+17078 +            END;
+17079 +          ELSE DO;
+17080 +            _NODE_  =                   69;
+17081 +            _LEAF_  =                   22;
+17082 +            P_quality  =     5.87096774193548;
+17083 +            END;
+17084 +          END;
+17085 +        END;
+17086 +      ELSE DO;
+17087 +        IF  NOT MISSING(pH ) AND
+17088 +          pH  <                3.245 THEN DO;
+17089 +          IF  NOT MISSING(volatile_acidity ) AND
+17090 +            volatile_acidity  <                0.195 THEN DO;
+17091 +            _NODE_  =                   72;
+17092 +            _LEAF_  =                   25;
+17093 +            P_quality  =     6.30827067669173;
+17094 +            END;
+17095 +          ELSE DO;
+17096 +            _NODE_  =                   73;
+17097 +            _LEAF_  =                   26;
+17098 +            P_quality  =     5.96781609195402;
+17099 +            END;
+17100 +          END;
+17101 +        ELSE DO;
+17102 +          IF  NOT MISSING(chlorides ) AND
+17103 +            chlorides  <               0.0395 THEN DO;
+17104 +            _NODE_  =                   74;
+17105 +            _LEAF_  =                   27;
+17106 +            P_quality  =     6.53205128205128;
+17107 +            END;
+17108 +          ELSE DO;
+17109 +            _NODE_  =                   75;
+17110 +            _LEAF_  =                   28;
+17111 +            P_quality  =      6.1038961038961;
+17112 +            END;
+17113 +          END;
+17114 +        END;
+17115 +      END;
+17116 +    END;
+17117 +  END;
+17118 +ELSE DO;
+17119 +  IF  NOT MISSING(volatile_acidity ) AND
+17120 +    volatile_acidity  <               0.2425 THEN DO;
+17121 +    IF  NOT MISSING(volatile_acidity ) AND
+17122 +                    0.2075 <= volatile_acidity  THEN DO;
+17123 +      _NODE_  =                    9;
+17124 +      _LEAF_  =                    7;
+17125 +      P_quality  =     5.69574944071588;
+17126 +      END;
+17127 +    ELSE DO;
+17128 +      IF  NOT MISSING(density ) AND
+17129 +                     0.99791 <= density  THEN DO;
+17130 +        IF  NOT MISSING(citric_acid ) AND
+17131 +                         0.305 <= citric_acid  THEN DO;
+17132 +          _NODE_  =                   33;
+17133 +          _LEAF_  =                    6;
+17134 +          P_quality  =                5.975;
+17135 +          END;
+17136 +        ELSE DO;
+17137 +          IF  NOT MISSING(alcohol ) AND
+17138 +                            9.15 <= alcohol  THEN DO;
+17139 +            _NODE_  =                   57;
+17140 +            _LEAF_  =                    5;
+17141 +            P_quality  =                    6;
+17142 +            END;
+17143 +          ELSE DO;
+17144 +            _NODE_  =                   56;
+17145 +            _LEAF_  =                    4;
+17146 +            P_quality  =     7.23913043478261;
+17147 +            END;
+17148 +          END;
+17149 +        END;
+17150 +      ELSE DO;
+17151 +        IF  NOT MISSING(free_sulfur_dioxide ) AND
+17152 +          free_sulfur_dioxide  <                  6.5 THEN DO;
+17153 +          _NODE_  =                   30;
+17154 +          _LEAF_  =                    1;
+17155 +          P_quality  =     4.42857142857142;
+17156 +          END;
+17157 +        ELSE DO;
+17158 +          IF  NOT MISSING(alcohol ) AND
+17159 +                    10.116666665 <= alcohol  THEN DO;
+17160 +            _NODE_  =                   55;
+17161 +            _LEAF_  =                    3;
+17162 +            P_quality  =              6.09375;
+17163 +            END;
+17164 +          ELSE DO;
+17165 +            _NODE_  =                   54;
+17166 +            _LEAF_  =                    2;
+17167 +            P_quality  =     5.80524344569288;
+17168 +            END;
+17169 +          END;
+17170 +        END;
+17171 +      END;
+17172 +    END;
+17173 +  ELSE DO;
+17174 +    IF  NOT MISSING(alcohol ) AND
+17175 +                      9.85 <= alcohol  THEN DO;
+17176 +      IF  NOT MISSING(sulphates ) AND
+17177 +        sulphates  <                0.545 THEN DO;
+17178 +        IF  NOT MISSING(free_sulfur_dioxide ) AND
+17179 +          free_sulfur_dioxide  <                 25.5 THEN DO;
+17180 +          _NODE_  =                   38;
+17181 +          _LEAF_  =                   15;
+17182 +          P_quality  =     5.21176470588235;
+17183 +          END;
+17184 +        ELSE DO;
+17185 +          IF  NOT MISSING(volatile_acidity ) AND
+17186 +                          0.7125 <= volatile_acidity  THEN DO;
+17187 +            _NODE_  =                   65;
+17188 +            _LEAF_  =                   17;
+17189 +            P_quality  =     4.57142857142857;
+17190 +            END;
+17191 +          ELSE DO;
+17192 +            _NODE_  =                   64;
+17193 +            _LEAF_  =                   16;
+17194 +            P_quality  =     5.62777777777777;
+17195 +            END;
+17196 +          END;
+17197 +        END;
+17198 +      ELSE DO;
+17199 +        IF  NOT MISSING(pH ) AND
+17200 +                         3.535 <= pH  THEN DO;
+17201 +          _NODE_  =                   41;
+17202 +          _LEAF_  =                   20;
+17203 +          P_quality  =                    5;
+17204 +          END;
+17205 +        ELSE DO;
+17206 +          IF  NOT MISSING(total_sulfur_dioxide ) AND
+17207 +                             186 <= total_sulfur_dioxide  THEN DO;
+17208 +            _NODE_  =                   67;
+17209 +            _LEAF_  =                   19;
+17210 +            P_quality  =     5.24242424242424;
+17211 +            END;
+17212 +          ELSE DO;
+17213 +            _NODE_  =                   66;
+17214 +            _LEAF_  =                   18;
+17215 +            P_quality  =     5.78369905956112;
+17216 +            END;
+17217 +          END;
+17218 +        END;
+17219 +      END;
+17220 +    ELSE DO;
+17221 +      IF  NOT MISSING(volatile_acidity ) AND
+17222 +                      0.4225 <= volatile_acidity  THEN DO;
+17223 +        IF  NOT MISSING(sulphates ) AND
+17224 +          sulphates  <                0.535 THEN DO;
+17225 +          _NODE_  =                   36;
+17226 +          _LEAF_  =                   12;
+17227 +          P_quality  =     4.96059113300492;
+17228 +          END;
+17229 +        ELSE DO;
+17230 +          IF  NOT MISSING(total_sulfur_dioxide ) AND
+17231 +            total_sulfur_dioxide  <                 46.5 THEN DO;
+17232 +            _NODE_  =                   62;
+17233 +            _LEAF_  =                   13;
+17234 +            P_quality  =     5.38235294117647;
+17235 +            END;
+17236 +          ELSE DO;
+17237 +            _NODE_  =                   63;
+17238 +            _LEAF_  =                   14;
+17239 +            P_quality  =     5.11290322580645;
+17240 +            END;
+17241 +          END;
+17242 +        END;
+17243 +      ELSE DO;
+17244 +        IF  NOT MISSING(citric_acid ) AND
+17245 +          citric_acid  <                0.265 THEN DO;
+17246 +          IF  NOT MISSING(pH ) AND
+17247 +                           3.485 <= pH  THEN DO;
+17248 +            _NODE_  =                   59;
+17249 +            _LEAF_  =                    9;
+17250 +            P_quality  =                    4;
+17251 +            END;
+17252 +          ELSE DO;
+17253 +            _NODE_  =                   58;
+17254 +            _LEAF_  =                    8;
+17255 +            P_quality  =     5.16788321167883;
+17256 +            END;
+17257 +          END;
+17258 +        ELSE DO;
+17259 +          IF  NOT MISSING(volatile_acidity ) AND
+17260 +            volatile_acidity  <                0.275 THEN DO;
+17261 +            _NODE_  =                   60;
+17262 +            _LEAF_  =                   10;
+17263 +            P_quality  =     5.60693641618497;
+17264 +            END;
+17265 +          ELSE DO;
+17266 +            _NODE_  =                   61;
+17267 +            _LEAF_  =                   11;
+17268 +            P_quality  =     5.35933806146572;
+17269 +            END;
+17270 +          END;
+17271 +        END;
+17272 +      END;
+17273 +    END;
+17274 +  END;
+17275 +
+17276 +*****  RESIDUALS R_ *************;
+17277 +IF MISSING( quality ) THEN R_quality  = .;
+17278 +ELSE R_quality  = quality  - P_quality ;
+17279 +
+17280 +****************************************************************;
+17281 +******          END OF DECISION TREE SCORING CODE         ******;
+17282 +****************************************************************;
+17283 +
+17284 +drop _LEAF_;
+NOTE: %INCLUDE (level 1) ending.
+17285  run;
+
+NOTE: DATA STEP view saved on file EMWS2.TREE2_TRAIN.
+NOTE: A stored DATA STEP view cannot run under a different operating system.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+17286  quit;
+17287  filename emflow;
+NOTE: Fileref EMFLOW has been deassigned.
+
+17288  filename emflow "C:\Users\Oscar\Documents\Document\File need to backup\UM\Y4S1\Data Mining and Warehousing\GroupAssignment\GroupAssignment_2023\Workspaces\EMWS2\Tree2\EMFLOWSCORE.sas";
+17289  *------------------------------------------------------------*;
+17290  * Tree2: Scoring TEST data;
+17291  *------------------------------------------------------------*;
+17292  data EMWS2.Tree2_TEST
+17293  / view=EMWS2.Tree2_TEST
+17294  ;
+17295  set EMWS2.Part_TEST
+17296  ;
+17297  %inc emflow;
+NOTE: %INCLUDE (level 1) file EMFLOW is file C:\Users\Oscar\Documents\Document\File need to backup\UM\Y4S1\Data Mining and Warehousing\GroupAssignment\GroupAssignment_2023\Workspaces\EMWS2\Tree2\EMFLOWSCORE.sas.
+17298 +****************************************************************;
+17299 +******             DECISION TREE SCORING CODE             ******;
+17300 +****************************************************************;
+17301 +
+17302 +******         LENGTHS OF NEW CHARACTER VARIABLES         ******;
+17303 +LENGTH _WARN_  $    4;
+17304 +
+17305 +******              LABELS FOR NEW VARIABLES              ******;
+17306 +label _NODE_ = 'Node' ;
+17307 +label _LEAF_ = 'Leaf' ;
+17308 +label P_quality = 'Predicted: quality' ;
+17309 +label R_quality = 'Residual: quality' ;
+17310 +label _WARN_ = 'Warnings' ;
+17311 +
+17312 +
+17313 +
+17314 +******             ASSIGN OBSERVATION TO NODE             ******;
+17315 +IF  NOT MISSING(alcohol ) AND
+17316 +                10.625 <= alcohol  THEN DO;
+17317 +  IF  NOT MISSING(alcohol ) AND
+17318 +            11.741666665 <= alcohol  THEN DO;
+17319 +    IF  NOT MISSING(free_sulfur_dioxide ) AND
+17320 +      free_sulfur_dioxide  <                 21.5 THEN DO;
+17321 +      IF  NOT MISSING(sulphates ) AND
+17322 +                       0.685 <= sulphates  THEN DO;
+17323 +        IF  NOT MISSING(total_sulfur_dioxide ) AND
+17324 +                           121 <= total_sulfur_dioxide  THEN DO;
+17325 +          _NODE_  =                   49;
+17326 +          _LEAF_  =                   35;
+17327 +          P_quality  =     5.85714285714285;
+17328 +          END;
+17329 +        ELSE DO;
+17330 +          _NODE_  =                   48;
+17331 +          _LEAF_  =                   34;
+17332 +          P_quality  =     6.79411764705882;
+17333 +          END;
+17334 +        END;
+17335 +      ELSE DO;
+17336 +        IF  NOT MISSING(density ) AND
+17337 +          density  <             0.990315 THEN DO;
+17338 +          IF  NOT MISSING(sulphates ) AND
+17339 +            sulphates  <                0.325 THEN DO;
+17340 +            _NODE_  =                   76;
+17341 +            _LEAF_  =                   31;
+17342 +            P_quality  =     7.66666666666666;
+17343 +            END;
+17344 +          ELSE DO;
+17345 +            _NODE_  =                   77;
+17346 +            _LEAF_  =                   32;
+17347 +            P_quality  =                  6.4;
+17348 +            END;
+17349 +          END;
+17350 +        ELSE DO;
+17351 +          _NODE_  =                   47;
+17352 +          _LEAF_  =                   33;
+17353 +          P_quality  =       5.920245398773;
+17354 +          END;
+17355 +        END;
+17356 +      END;
+17357 +    ELSE DO;
+17358 +      IF  NOT MISSING(fixed_acidity ) AND
+17359 +                        7.85 <= fixed_acidity  THEN DO;
+17360 +        IF  NOT MISSING(volatile_acidity ) AND
+17361 +                         0.395 <= volatile_acidity  THEN DO;
+17362 +          _NODE_  =                   53;
+17363 +          _LEAF_  =                   40;
+17364 +          P_quality  =     6.80952380952381;
+17365 +          END;
+17366 +        ELSE DO;
+17367 +          _NODE_  =                   52;
+17368 +          _LEAF_  =                   39;
+17369 +          P_quality  =     6.14545454545454;
+17370 +          END;
+17371 +        END;
+17372 +      ELSE DO;
+17373 +        IF  NOT MISSING(sulphates ) AND
+17374 +                         0.475 <= sulphates  THEN DO;
+17375 +          _NODE_  =                   51;
+17376 +          _LEAF_  =                   38;
+17377 +          P_quality  =     6.85526315789473;
+17378 +          END;
+17379 +        ELSE DO;
+17380 +          IF  NOT MISSING(fixed_acidity ) AND
+17381 +            fixed_acidity  <                 5.35 THEN DO;
+17382 +            _NODE_  =                   78;
+17383 +            _LEAF_  =                   36;
+17384 +            P_quality  =                 7.25;
+17385 +            END;
+17386 +          ELSE DO;
+17387 +            _NODE_  =                   79;
+17388 +            _LEAF_  =                   37;
+17389 +            P_quality  =     6.55035971223021;
+17390 +            END;
+17391 +          END;
+17392 +        END;
+17393 +      END;
+17394 +    END;
+17395 +  ELSE DO;
+17396 +    IF  NOT MISSING(volatile_acidity ) AND
+17397 +                     0.675 <= volatile_acidity  THEN DO;
+17398 +      IF  NOT MISSING(volatile_acidity ) AND
+17399 +                       1.015 <= volatile_acidity  THEN DO;
+17400 +        _NODE_  =                   25;
+17401 +        _LEAF_  =                   30;
+17402 +        P_quality  =                    4;
+17403 +        END;
+17404 +      ELSE DO;
+17405 +        _NODE_  =                   24;
+17406 +        _LEAF_  =                   29;
+17407 +        P_quality  =     5.33333333333333;
+17408 +        END;
+17409 +      END;
+17410 +    ELSE DO;
+17411 +      IF  NOT MISSING(free_sulfur_dioxide ) AND
+17412 +        free_sulfur_dioxide  <                 11.5 THEN DO;
+17413 +        IF  NOT MISSING(total_sulfur_dioxide ) AND
+17414 +                            36 <= total_sulfur_dioxide  THEN DO;
+17415 +          IF  NOT MISSING(alcohol ) AND
+17416 +            alcohol  <                11.05 THEN DO;
+17417 +            _NODE_  =                   70;
+17418 +            _LEAF_  =                   23;
+17419 +            P_quality  =     5.44117647058823;
+17420 +            END;
+17421 +          ELSE DO;
+17422 +            _NODE_  =                   71;
+17423 +            _LEAF_  =                   24;
+17424 +            P_quality  =     4.71428571428571;
+17425 +            END;
+17426 +          END;
+17427 +        ELSE DO;
+17428 +          IF  NOT MISSING(volatile_acidity ) AND
+17429 +            volatile_acidity  <                0.365 THEN DO;
+17430 +            _NODE_  =                   68;
+17431 +            _LEAF_  =                   21;
+17432 +            P_quality  =              6.59375;
+17433 +            END;
+17434 +          ELSE DO;
+17435 +            _NODE_  =                   69;
+17436 +            _LEAF_  =                   22;
+17437 +            P_quality  =     5.87096774193548;
+17438 +            END;
+17439 +          END;
+17440 +        END;
+17441 +      ELSE DO;
+17442 +        IF  NOT MISSING(pH ) AND
+17443 +          pH  <                3.245 THEN DO;
+17444 +          IF  NOT MISSING(volatile_acidity ) AND
+17445 +            volatile_acidity  <                0.195 THEN DO;
+17446 +            _NODE_  =                   72;
+17447 +            _LEAF_  =                   25;
+17448 +            P_quality  =     6.30827067669173;
+17449 +            END;
+17450 +          ELSE DO;
+17451 +            _NODE_  =                   73;
+17452 +            _LEAF_  =                   26;
+17453 +            P_quality  =     5.96781609195402;
+17454 +            END;
+17455 +          END;
+17456 +        ELSE DO;
+17457 +          IF  NOT MISSING(chlorides ) AND
+17458 +            chlorides  <               0.0395 THEN DO;
+17459 +            _NODE_  =                   74;
+17460 +            _LEAF_  =                   27;
+17461 +            P_quality  =     6.53205128205128;
+17462 +            END;
+17463 +          ELSE DO;
+17464 +            _NODE_  =                   75;
+17465 +            _LEAF_  =                   28;
+17466 +            P_quality  =      6.1038961038961;
+17467 +            END;
+17468 +          END;
+17469 +        END;
+17470 +      END;
+17471 +    END;
+17472 +  END;
+17473 +ELSE DO;
+17474 +  IF  NOT MISSING(volatile_acidity ) AND
+17475 +    volatile_acidity  <               0.2425 THEN DO;
+17476 +    IF  NOT MISSING(volatile_acidity ) AND
+17477 +                    0.2075 <= volatile_acidity  THEN DO;
+17478 +      _NODE_  =                    9;
+17479 +      _LEAF_  =                    7;
+17480 +      P_quality  =     5.69574944071588;
+17481 +      END;
+17482 +    ELSE DO;
+17483 +      IF  NOT MISSING(density ) AND
+17484 +                     0.99791 <= density  THEN DO;
+17485 +        IF  NOT MISSING(citric_acid ) AND
+17486 +                         0.305 <= citric_acid  THEN DO;
+17487 +          _NODE_  =                   33;
+17488 +          _LEAF_  =                    6;
+17489 +          P_quality  =                5.975;
+17490 +          END;
+17491 +        ELSE DO;
+17492 +          IF  NOT MISSING(alcohol ) AND
+17493 +                            9.15 <= alcohol  THEN DO;
+17494 +            _NODE_  =                   57;
+17495 +            _LEAF_  =                    5;
+17496 +            P_quality  =                    6;
+17497 +            END;
+17498 +          ELSE DO;
+17499 +            _NODE_  =                   56;
+17500 +            _LEAF_  =                    4;
+17501 +            P_quality  =     7.23913043478261;
+17502 +            END;
+17503 +          END;
+17504 +        END;
+17505 +      ELSE DO;
+17506 +        IF  NOT MISSING(free_sulfur_dioxide ) AND
+17507 +          free_sulfur_dioxide  <                  6.5 THEN DO;
+17508 +          _NODE_  =                   30;
+17509 +          _LEAF_  =                    1;
+17510 +          P_quality  =     4.42857142857142;
+17511 +          END;
+17512 +        ELSE DO;
+17513 +          IF  NOT MISSING(alcohol ) AND
+17514 +                    10.116666665 <= alcohol  THEN DO;
+17515 +            _NODE_  =                   55;
+17516 +            _LEAF_  =                    3;
+17517 +            P_quality  =              6.09375;
+17518 +            END;
+17519 +          ELSE DO;
+17520 +            _NODE_  =                   54;
+17521 +            _LEAF_  =                    2;
+17522 +            P_quality  =     5.80524344569288;
+17523 +            END;
+17524 +          END;
+17525 +        END;
+17526 +      END;
+17527 +    END;
+17528 +  ELSE DO;
+17529 +    IF  NOT MISSING(alcohol ) AND
+17530 +                      9.85 <= alcohol  THEN DO;
+17531 +      IF  NOT MISSING(sulphates ) AND
+17532 +        sulphates  <                0.545 THEN DO;
+17533 +        IF  NOT MISSING(free_sulfur_dioxide ) AND
+17534 +          free_sulfur_dioxide  <                 25.5 THEN DO;
+17535 +          _NODE_  =                   38;
+17536 +          _LEAF_  =                   15;
+17537 +          P_quality  =     5.21176470588235;
+17538 +          END;
+17539 +        ELSE DO;
+17540 +          IF  NOT MISSING(volatile_acidity ) AND
+17541 +                          0.7125 <= volatile_acidity  THEN DO;
+17542 +            _NODE_  =                   65;
+17543 +            _LEAF_  =                   17;
+17544 +            P_quality  =     4.57142857142857;
+17545 +            END;
+17546 +          ELSE DO;
+17547 +            _NODE_  =                   64;
+17548 +            _LEAF_  =                   16;
+17549 +            P_quality  =     5.62777777777777;
+17550 +            END;
+17551 +          END;
+17552 +        END;
+17553 +      ELSE DO;
+17554 +        IF  NOT MISSING(pH ) AND
+17555 +                         3.535 <= pH  THEN DO;
+17556 +          _NODE_  =                   41;
+17557 +          _LEAF_  =                   20;
+17558 +          P_quality  =                    5;
+17559 +          END;
+17560 +        ELSE DO;
+17561 +          IF  NOT MISSING(total_sulfur_dioxide ) AND
+17562 +                             186 <= total_sulfur_dioxide  THEN DO;
+17563 +            _NODE_  =                   67;
+17564 +            _LEAF_  =                   19;
+17565 +            P_quality  =     5.24242424242424;
+17566 +            END;
+17567 +          ELSE DO;
+17568 +            _NODE_  =                   66;
+17569 +            _LEAF_  =                   18;
+17570 +            P_quality  =     5.78369905956112;
+17571 +            END;
+17572 +          END;
+17573 +        END;
+17574 +      END;
+17575 +    ELSE DO;
+17576 +      IF  NOT MISSING(volatile_acidity ) AND
+17577 +                      0.4225 <= volatile_acidity  THEN DO;
+17578 +        IF  NOT MISSING(sulphates ) AND
+17579 +          sulphates  <                0.535 THEN DO;
+17580 +          _NODE_  =                   36;
+17581 +          _LEAF_  =                   12;
+17582 +          P_quality  =     4.96059113300492;
+17583 +          END;
+17584 +        ELSE DO;
+17585 +          IF  NOT MISSING(total_sulfur_dioxide ) AND
+17586 +            total_sulfur_dioxide  <                 46.5 THEN DO;
+17587 +            _NODE_  =                   62;
+17588 +            _LEAF_  =                   13;
+17589 +            P_quality  =     5.38235294117647;
+17590 +            END;
+17591 +          ELSE DO;
+17592 +            _NODE_  =                   63;
+17593 +            _LEAF_  =                   14;
+17594 +            P_quality  =     5.11290322580645;
+17595 +            END;
+17596 +          END;
+17597 +        END;
+17598 +      ELSE DO;
+17599 +        IF  NOT MISSING(citric_acid ) AND
+17600 +          citric_acid  <                0.265 THEN DO;
+17601 +          IF  NOT MISSING(pH ) AND
+17602 +                           3.485 <= pH  THEN DO;
+17603 +            _NODE_  =                   59;
+17604 +            _LEAF_  =                    9;
+17605 +            P_quality  =                    4;
+17606 +            END;
+17607 +          ELSE DO;
+17608 +            _NODE_  =                   58;
+17609 +            _LEAF_  =                    8;
+17610 +            P_quality  =     5.16788321167883;
+17611 +            END;
+17612 +          END;
+17613 +        ELSE DO;
+17614 +          IF  NOT MISSING(volatile_acidity ) AND
+17615 +            volatile_acidity  <                0.275 THEN DO;
+17616 +            _NODE_  =                   60;
+17617 +            _LEAF_  =                   10;
+17618 +            P_quality  =     5.60693641618497;
+17619 +            END;
+17620 +          ELSE DO;
+17621 +            _NODE_  =                   61;
+17622 +            _LEAF_  =                   11;
+17623 +            P_quality  =     5.35933806146572;
+17624 +            END;
+17625 +          END;
+17626 +        END;
+17627 +      END;
+17628 +    END;
+17629 +  END;
+17630 +
+17631 +*****  RESIDUALS R_ *************;
+17632 +IF MISSING( quality ) THEN R_quality  = .;
+17633 +ELSE R_quality  = quality  - P_quality ;
+17634 +
+17635 +****************************************************************;
+17636 +******          END OF DECISION TREE SCORING CODE         ******;
+17637 +****************************************************************;
+17638 +
+17639 +drop _LEAF_;
+NOTE: %INCLUDE (level 1) ending.
+17640  run;
+
+NOTE: DATA STEP view saved on file EMWS2.TREE2_TEST.
+NOTE: A stored DATA STEP view cannot run under a different operating system.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+17641  quit;
+17642  filename emflow;
+NOTE: Fileref EMFLOW has been deassigned.
+
+NOTE: View EMWS2.TREE2_TRAIN.VIEW used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+17644  proc sort data=WORK.EM_USER_REPORT;
+17645  by ID VIEW;
+17646  run;
+
+NOTE: There were 132 observations read from the data set WORK.EM_USER_REPORT.
+NOTE: The data set WORK.EM_USER_REPORT has 132 observations and 4 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+17647  *------------------------------------------------------------*;
+17648  * Tree2: Computing metadata for TRAIN data;
+17649  *------------------------------------------------------------*;
+
+NOTE: View EMWS2.TREE2_TRAIN.VIEW used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+18016  data WORK.MODELTEMP_INFO;
+18017  set EMWS2.Tree2_EMINFO;
+18018  where DATA='Tree2' and KEY ^in('DECDATA', 'DECMETA', 'IMPORTANCE', 'MODEL');
+18019  run;
+
+NOTE: There were 0 observations read from the data set EMWS2.TREE2_EMINFO.
+      WHERE (DATA='Tree2') and KEY not in ('DECDATA', 'DECMETA', 'IMPORTANCE', 'MODEL');
+NOTE: The data set WORK.MODELTEMP_INFO has 0 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+18020  data EMWS2.Tree2_EMINFO;
+18021  length TARGET KEY $32 DATA $43;
+18022  input TARGET KEY DATA $;
+18023  cards;
+
+NOTE: The data set EMWS2.TREE2_EMINFO has 3 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+18027  run;
+18028  data EMWS2.Tree2_EMINFO;
+18029  set EMWS2.Tree2_EMINFO WORK.MODELTEMP_INFO;
+18030  run;
+
+NOTE: There were 3 observations read from the data set EMWS2.TREE2_EMINFO.
+NOTE: There were 0 observations read from the data set WORK.MODELTEMP_INFO.
+NOTE: The data set EMWS2.TREE2_EMINFO has 3 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+18031  proc sort data = EMWS2.Tree2_EMINFO NOTHREADS;
+18032  by TARGET KEY;
+18033  run;
+
+NOTE: There were 3 observations read from the data set EMWS2.TREE2_EMINFO.
+NOTE: The data set EMWS2.TREE2_EMINFO has 3 observations and 3 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: View EMWS2.TREE2_TRAIN.VIEW used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+NOTE: View EMWS2.TREE2_TEST.VIEW used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+      

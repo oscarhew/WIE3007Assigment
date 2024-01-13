@@ -1,0 +1,18 @@
+*------------------------------------------------------------*;
+* Smpl: Create random sample;
+*------------------------------------------------------------*;
+data EMWS2.Smpl_DATA(label="Sample of EMWS2.FIMPORT3_train.");
+set EMWS2.FIMPORT3_train;
+retain _seed_ 12345;
+label _dataobs_ = "%sysfunc(sasmsg(sashelp.dmine, sample_dataobs_vlabel, NOQUOTE))";
+drop _sample_count_ _seed_ _genvalue_;
+call ranuni(_seed_, _genvalue_);
+if _sample_count_ < 650 then do;
+if _genvalue_*(6497+1 - _N_) <= (650 - _sample_count_) then do;
+_dataobs_ = _N_;
+_sample_count_ + 1;
+output;
+end;
+end;
+run;
+quit;

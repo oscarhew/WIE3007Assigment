@@ -1,0 +1,14 @@
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+Exported Attributes for TRAIN Port
+
+            Measurement    Frequency
+  Role         Level         Count
+
+CROSSID      NOMINAL            2   
+REJECTED     INTERVAL          16   
+REJECTED     NOMINAL            1   
+TARGET       INTERVAL           1   
+TIMEID       INTERVAL           1   

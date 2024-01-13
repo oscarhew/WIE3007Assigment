@@ -1,0 +1,26 @@
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+Variable Summary
+
+            Measurement    Frequency
+Role           Level         Count
+
+ID           INTERVAL           1   
+INPUT        INTERVAL          11   
+INPUT        NOMINAL            2   
+RESIDUAL     INTERVAL           1   
+SEQUENCE     INTERVAL           1   
+TARGET       INTERVAL           1   
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+Predicted and decision variables
+
+Type         Variable           Label
+
+TARGET       quality                        
+PREDICTED    P_quality    Predicted: quality
+RESIDUAL     R_quality    Residual: quality 

@@ -1,0 +1,67 @@
+*------------------------------------------------------------*
+* Score Log
+Date:                January 06, 2024
+Time:                00:56:53
+*------------------------------------------------------------*
+11499  *------------------------------------------------------------*;
+11500  * Stat4: Scoring DATA data;
+11501  *------------------------------------------------------------*;
+11502  data EMWS2.Stat4_TRAIN
+11503  / view=EMWS2.Stat4_TRAIN
+11504  ;
+11505  set EMWS2.Impt3_TRAIN
+11506  ;
+11507  run;
+
+NOTE: DATA STEP view saved on file EMWS2.STAT4_TRAIN.
+NOTE: A stored DATA STEP view cannot run under a different operating system.
+NOTE: View EMWS2.IMPT3_TRAIN.VIEW used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.01 seconds
+      
+NOTE: DATA statement used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.01 seconds
+      
+
+11508  quit;
+
+11509  *------------------------------------------------------------*;
+11510  * Stat4: Scoring TEST data;
+11511  *------------------------------------------------------------*;
+11512  data EMWS2.Stat4_TEST
+11513  / view=EMWS2.Stat4_TEST
+11514  ;
+11515  set EMWS2.Impt3_TEST
+11516  ;
+11517  run;
+
+NOTE: DATA STEP view saved on file EMWS2.STAT4_TEST.
+NOTE: A stored DATA STEP view cannot run under a different operating system.
+NOTE: View EMWS2.IMPT3_TEST.VIEW used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.03 seconds
+      
+NOTE: DATA statement used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.03 seconds
+      
+
+11518  quit;
+
+11519  *------------------------------------------------------------*;
+11520  * Stat4: Computing metadata for TRAIN data;
+11521  *------------------------------------------------------------*;
+
+NOTE: View EMWS2.STAT4_TRAIN.VIEW used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.01 seconds
+      
+NOTE: View EMWS2.STAT4_TRAIN.VIEW used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.04 seconds
+      
+NOTE: View EMWS2.STAT4_TEST.VIEW used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.06 seconds
+      

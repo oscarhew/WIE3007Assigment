@@ -1,0 +1,126 @@
+*------------------------------------------------------------*
+* Training Log
+Date:                January 07, 2024
+Time:                01:17:16
+*------------------------------------------------------------*
+10867  proc freq data=EMWS2.Smpl_VariableSet noprint;
+10868  table ROLE*LEVEL/out=WORK.SmplMETA;
+10869  run;
+
+NOTE: There were 13 observations read from the data set EMWS2.SMPL_VARIABLESET.
+NOTE: The data set WORK.SMPLMETA has 4 observations and 4 variables.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.01 seconds
+      
+
+10870  proc print data=WORK.SmplMETA label noobs;
+10871  var ROLE LEVEL COUNT;
+10872  label ROLE = "%sysfunc(sasmsg(sashelp.dmine, meta_role_vlabel, NOQUOTE))" LEVEL = "%sysfunc(sasmsg(sashelp.dmine, meta_level_vlabel, NOQUOTE))" COUNT = "%sysfunc(sasmsg(sashelp.dmine, rpt_count_vlabel, NOQUOTE))";
+10873  title9 ' ';
+10874  title10 "%sysfunc(sasmsg(sashelp.dmine, rpt_varSummary_title  , NOQUOTE))";
+10875  run;
+
+NOTE: There were 4 observations read from the data set WORK.SMPLMETA.
+NOTE: The PROCEDURE PRINT printed page 1.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+10876  title10;
+
+10883  *------------------------------------------------------------*;
+10884  * Smpl: Determine number of observations;
+10885  *------------------------------------------------------------*;
+10886  proc sql;
+10887  reset noprint;
+10888  select count(*) into :_tmpa from EMWS2.FIMPORT3_train
+10889  ;
+NOTE: View EMWS2.FIMPORT3_TRAIN.VIEW used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.00 seconds
+      
+NOTE: There were 6497 observations read from the data set EMWS2.FIMPORT3_DATA.
+10890  quit;
+NOTE: PROCEDURE SQL used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      
+
+NOTE: View EMWS2.FIMPORT3_TRAIN.VIEW used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      
+10891  *------------------------------------------------------------*;
+10892  * Smpl: Create random sample;
+10893  *------------------------------------------------------------*;
+10894  data EMWS2.Smpl_DATA(label="Sample of EMWS2.FIMPORT3_train.");
+10895  set EMWS2.FIMPORT3_train;
+10896  retain _seed_ 12345;
+10897  label _dataobs_ = "%sysfunc(sasmsg(sashelp.dmine, sample_dataobs_vlabel, NOQUOTE))";
+10898  drop _sample_count_ _seed_ _genvalue_;
+10899  call ranuni(_seed_, _genvalue_);
+10900  if _sample_count_ < 650 then do;
+10901  if _genvalue_*(6497+1 - _N_) <= (650 - _sample_count_) then do;
+10902  _dataobs_ = _N_;
+10903  _sample_count_ + 1;
+10904  output;
+10905  end;
+10906  end;
+10907  run;
+
+NOTE: View EMWS2.FIMPORT3_TRAIN.VIEW used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      
+NOTE: There were 6497 observations read from the data set EMWS2.FIMPORT3_DATA.
+NOTE: There were 6497 observations read from the data set EMWS2.FIMPORT3_TRAIN.
+NOTE: The data set EMWS2.SMPL_DATA has 650 observations and 14 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.01 seconds
+      
+
+10908  quit;
+
+10909  data _tempNobs;
+10910  length Type $8 Table $32 Nobs 8;
+10911  label type= "%sysfunc(sasmsg(sashelp.dmine, meta_type_vlabel,    NOQUOTE))" table = "%sysfunc(sasmsg(sashelp.dmine, meta_dataset_vlabel, NOQUOTE))" nobs = "%sysfunc(sasmsg(sashelp.dmine,  rpt_numObs_vlabel,   NOQUOTE))";
+10912  type='DATA';
+10913  table="EMWS2.FIMPORT3_train";
+10914  Nobs=6497;
+10915  output;
+10916  type='SAMPLE';
+10917  table="EMWS2.Smpl_DATA";
+10918  Nobs=650;
+10919  output;
+10920  run;
+
+NOTE: The data set WORK._TEMPNOBS has 2 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+10921  %let _cn = %sysfunc(getoption(CENTER));
+10922  %let _nb = %sysfunc(getoption(NUMBER));
+10923  options nonumber nocenter;
+10924  proc print data=_tempNobs noobs label;
+10925  title9 ' ';
+10926  title10 "%sysfunc(sasmsg(sashelp.dmine, rpt_samplingSummary_title, NOQUOTE))";
+10927  run;
+
+NOTE: There were 2 observations read from the data set WORK._TEMPNOBS.
+NOTE: The PROCEDURE PRINT printed page 2.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+10928  title10;
+10929  options &_cn &_nb;
+10930  run;
+
+10931  quit;
+

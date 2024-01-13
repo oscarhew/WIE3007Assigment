@@ -1,0 +1,93 @@
+*------------------------------------------------------------*
+User:                Oscar
+Date:                January 07, 2024
+Time:                01:15:55
+*------------------------------------------------------------*
+* Training Output
+*------------------------------------------------------------*
+ 
+ 
+ 
+ 
+Variable Summary
+ 
+            Measurement    Frequency
+Role           Level         Count
+ 
+INPUT        INTERVAL          10
+INPUT        NOMINAL            1
+REJECTED     INTERVAL           1
+TARGET       NOMINAL            1
+ 
+ 
+ 
+ 
+ 
+The CONTENTS Procedure
+ 
+Data Set Name        EMWS2.FIMPORT3_DATA           Observations          6497
+Member Type          DATA                          Variables             13
+Engine               V9                            Indexes               0
+Created              01/07/2024 01:15:54           Observation Length    104
+Last Modified        01/07/2024 01:15:54           Deleted Observations  0
+Protection                                         Compressed            NO
+Data Set Type                                      Sorted                NO
+Label
+Data Representation  WINDOWS_32
+Encoding             wlatin1  Western (Windows)
+ 
+ 
+                                                                                Engine/Host Dependent Information
+ 
+Data Set Page Size          65536
+Number of Data Set Pages    11
+First Data Page             1
+Max Obs per Page            629
+Obs in First Data Page      605
+Number of Data Set Repairs  0
+ExtendObsCounter            YES
+Filename                    C:\Users\Oscar\Documents\Document\File need to backup\UM\Y4S1\Data Mining and Warehousing\GroupAssignment\GroupAssignment_2023\Workspaces\EMWS2\fimport3_data.sas7bdat
+Release Created             9.0401M3
+Host Created                W32_8HOME
+ 
+ 
+                       Alphabetic List of Variables and Attributes
+ 
+ #    Variable                Type    Len    Format     Informat    Label
+ 
+ 5    alcohol                 Num       8    BEST12.    BEST32.
+ 7    category                Char      3    $3.        $3.
+ 1    chlorides               Num       8    BEST12.    BEST32.
+10    citric_acid             Num       8                           citric acid
+ 2    density                 Num       8    BEST12.    BEST32.
+ 8    fixed_acidity           Num       8                           fixed acidity
+12    free_sulfur_dioxide     Num       8                           free sulfur dioxide
+ 3    pH                      Num       8    BEST12.    BEST32.
+ 6    quality                 Num       8    BEST12.    BEST32.
+11    residual_sugar          Num       8                           residual sugar
+ 4    sulphates               Num       8    BEST12.    BEST32.
+13    total_sulfur_dioxide    Num       8                           total sulfur dioxide
+ 9    volatile_acidity        Num       8                           volatile acidity
+
+
+*------------------------------------------------------------*
+* Score Output
+*------------------------------------------------------------*
+
+
+*------------------------------------------------------------*
+* Report Output
+*------------------------------------------------------------*
+ 
+ 
+ 
+ 
+Exported Attributes for TRAIN Port
+ 
+            Measurement    Frequency
+Role           Level         Count
+ 
+INPUT        INTERVAL          10
+INPUT        NOMINAL            1
+REJECTED     INTERVAL           1
+TARGET       NOMINAL            1

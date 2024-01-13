@@ -1,0 +1,702 @@
+*------------------------------------------------------------*
+ Node = 18
+*------------------------------------------------------------*
+if volatile acidity < 0.2425 AND volatile acidity >= 0.2075
+AND free sulfur dioxide < 23.5
+AND alcohol < 10.625 or MISSING
+then 
+ Tree Node Identifier   = 18
+ Number of Observations = 78
+ Predicted: quality = 5.4615384615
+ 
+*------------------------------------------------------------*
+ Node = 27
+*------------------------------------------------------------*
+if volatile acidity >= 1.015
+AND alcohol < 11.7417 AND alcohol >= 10.625 or MISSING
+then 
+ Tree Node Identifier   = 27
+ Number of Observations = 8
+ Predicted: quality = 4
+ 
+*------------------------------------------------------------*
+ Node = 29
+*------------------------------------------------------------*
+if sulphates >= 0.685
+AND free sulfur dioxide < 21.5
+AND alcohol >= 11.7417
+then 
+ Tree Node Identifier   = 29
+ Number of Observations = 75
+ Predicted: quality = 6.7066666667
+ 
+*------------------------------------------------------------*
+ Node = 32
+*------------------------------------------------------------*
+if volatile acidity < 0.2075 or MISSING
+AND free sulfur dioxide < 7.5
+AND density < 0.99791 or MISSING
+AND alcohol < 10.625 or MISSING
+then 
+ Tree Node Identifier   = 32
+ Number of Observations = 11
+ Predicted: quality = 4.8181818182
+ 
+*------------------------------------------------------------*
+ Node = 35
+*------------------------------------------------------------*
+if volatile acidity < 0.2075 or MISSING
+AND density >= 0.99791
+AND citric acid >= 0.305
+AND alcohol < 10.625 or MISSING
+then 
+ Tree Node Identifier   = 35
+ Number of Observations = 40
+ Predicted: quality = 5.975
+ 
+*------------------------------------------------------------*
+ Node = 38
+*------------------------------------------------------------*
+if volatile acidity < 0.4225 AND volatile acidity >= 0.2425 or MISSING
+AND citric acid < 0.265
+AND alcohol < 9.85 or MISSING
+then 
+ Tree Node Identifier   = 38
+ Number of Observations = 279
+ Predicted: quality = 5.146953405
+ 
+*------------------------------------------------------------*
+ Node = 42
+*------------------------------------------------------------*
+if volatile acidity >= 0.2425 or MISSING
+AND sulphates < 0.545
+AND free sulfur dioxide < 25.5
+AND alcohol < 10.625 AND alcohol >= 9.85
+then 
+ Tree Node Identifier   = 42
+ Number of Observations = 170
+ Predicted: quality = 5.2117647059
+ 
+*------------------------------------------------------------*
+ Node = 43
+*------------------------------------------------------------*
+if volatile acidity >= 0.2425 or MISSING
+AND sulphates < 0.545
+AND free sulfur dioxide >= 25.5 or MISSING
+AND alcohol < 10.625 AND alcohol >= 9.85
+then 
+ Tree Node Identifier   = 43
+ Number of Observations = 187
+ Predicted: quality = 5.5882352941
+ 
+*------------------------------------------------------------*
+ Node = 45
+*------------------------------------------------------------*
+if volatile acidity >= 0.2425 or MISSING
+AND sulphates >= 0.545 or MISSING
+AND pH >= 3.535
+AND alcohol < 10.625 AND alcohol >= 9.85
+then 
+ Tree Node Identifier   = 45
+ Number of Observations = 19
+ Predicted: quality = 5
+ 
+*------------------------------------------------------------*
+ Node = 50
+*------------------------------------------------------------*
+if volatile acidity < 1.015 AND volatile acidity >= 0.675 or MISSING
+AND sulphates < 0.595 or MISSING
+AND alcohol < 11.7417 AND alcohol >= 10.625 or MISSING
+then 
+ Tree Node Identifier   = 50
+ Number of Observations = 30
+ Predicted: quality = 5.0333333333
+ 
+*------------------------------------------------------------*
+ Node = 51
+*------------------------------------------------------------*
+if volatile acidity < 1.015 AND volatile acidity >= 0.675 or MISSING
+AND sulphates >= 0.595
+AND alcohol < 11.7417 AND alcohol >= 10.625 or MISSING
+then 
+ Tree Node Identifier   = 51
+ Number of Observations = 27
+ Predicted: quality = 5.6666666667
+ 
+*------------------------------------------------------------*
+ Node = 53
+*------------------------------------------------------------*
+if sulphates < 0.685 or MISSING
+AND free sulfur dioxide < 21.5
+AND density >= 0.99032 or MISSING
+AND alcohol >= 11.7417
+then 
+ Tree Node Identifier   = 53
+ Number of Observations = 163
+ Predicted: quality = 5.9202453988
+ 
+*------------------------------------------------------------*
+ Node = 55
+*------------------------------------------------------------*
+if sulphates >= 0.475
+AND free sulfur dioxide >= 21.5 or MISSING
+AND fixed acidity < 7.85 or MISSING
+AND alcohol >= 11.7417
+then 
+ Tree Node Identifier   = 55
+ Number of Observations = 228
+ Predicted: quality = 6.8552631579
+ 
+*------------------------------------------------------------*
+ Node = 56
+*------------------------------------------------------------*
+if volatile acidity < 0.395 or MISSING
+AND free sulfur dioxide >= 21.5 or MISSING
+AND fixed acidity >= 7.85
+AND alcohol >= 11.7417
+then 
+ Tree Node Identifier   = 56
+ Number of Observations = 55
+ Predicted: quality = 6.1454545455
+ 
+*------------------------------------------------------------*
+ Node = 57
+*------------------------------------------------------------*
+if volatile acidity >= 0.395
+AND free sulfur dioxide >= 21.5 or MISSING
+AND fixed acidity >= 7.85
+AND alcohol >= 11.7417
+then 
+ Tree Node Identifier   = 57
+ Number of Observations = 21
+ Predicted: quality = 6.8095238095
+ 
+*------------------------------------------------------------*
+ Node = 59
+*------------------------------------------------------------*
+if volatile acidity < 0.2075 or MISSING
+AND free sulfur dioxide >= 7.5 or MISSING
+AND density < 0.99791 or MISSING
+AND alcohol < 10.625 AND alcohol >= 10.1167
+then 
+ Tree Node Identifier   = 59
+ Number of Observations = 157
+ Predicted: quality = 6.1082802548
+ 
+*------------------------------------------------------------*
+ Node = 61
+*------------------------------------------------------------*
+if volatile acidity < 0.2075 or MISSING
+AND density >= 0.99791
+AND citric acid < 0.305 or MISSING
+AND alcohol < 10.625 AND alcohol >= 9.15
+then 
+ Tree Node Identifier   = 61
+ Number of Observations = 8
+ Predicted: quality = 6
+ 
+*------------------------------------------------------------*
+ Node = 62
+*------------------------------------------------------------*
+if volatile acidity < 0.2175 AND volatile acidity >= 0.2075
+AND free sulfur dioxide >= 23.5 or MISSING
+AND alcohol < 9.56667 or MISSING
+then 
+ Tree Node Identifier   = 62
+ Number of Observations = 31
+ Predicted: quality = 5.2258064516
+ 
+*------------------------------------------------------------*
+ Node = 64
+*------------------------------------------------------------*
+if volatile acidity < 0.2425 AND volatile acidity >= 0.2075
+AND sulphates < 0.435 or MISSING
+AND free sulfur dioxide >= 23.5 or MISSING
+AND alcohol < 10.625 AND alcohol >= 9.56667
+then 
+ Tree Node Identifier   = 64
+ Number of Observations = 52
+ Predicted: quality = 5.6153846154
+ 
+*------------------------------------------------------------*
+ Node = 65
+*------------------------------------------------------------*
+if volatile acidity < 0.2425 AND volatile acidity >= 0.2075
+AND sulphates >= 0.435
+AND free sulfur dioxide >= 23.5 or MISSING
+AND alcohol < 10.625 AND alcohol >= 9.56667
+then 
+ Tree Node Identifier   = 65
+ Number of Observations = 121
+ Predicted: quality = 6
+ 
+*------------------------------------------------------------*
+ Node = 68
+*------------------------------------------------------------*
+if volatile acidity >= 0.4225
+AND sulphates < 0.535
+AND citric acid < 0.035
+AND alcohol < 9.85 or MISSING
+then 
+ Tree Node Identifier   = 68
+ Number of Observations = 31
+ Predicted: quality = 4.6451612903
+ 
+*------------------------------------------------------------*
+ Node = 69
+*------------------------------------------------------------*
+if volatile acidity >= 0.4225
+AND sulphates < 0.535
+AND citric acid >= 0.035 or MISSING
+AND alcohol < 9.85 or MISSING
+then 
+ Tree Node Identifier   = 69
+ Number of Observations = 172
+ Predicted: quality = 5.0174418605
+ 
+*------------------------------------------------------------*
+ Node = 70
+*------------------------------------------------------------*
+if volatile acidity >= 0.4225
+AND total sulfur dioxide < 46.5
+AND sulphates >= 0.535 or MISSING
+AND alcohol < 9.85 or MISSING
+then 
+ Tree Node Identifier   = 70
+ Number of Observations = 136
+ Predicted: quality = 5.3823529412
+ 
+*------------------------------------------------------------*
+ Node = 71
+*------------------------------------------------------------*
+if volatile acidity >= 0.4225
+AND total sulfur dioxide >= 46.5 or MISSING
+AND sulphates >= 0.535 or MISSING
+AND alcohol < 9.85 or MISSING
+then 
+ Tree Node Identifier   = 71
+ Number of Observations = 186
+ Predicted: quality = 5.1129032258
+ 
+*------------------------------------------------------------*
+ Node = 72
+*------------------------------------------------------------*
+if volatile acidity >= 0.2425 or MISSING
+AND total sulfur dioxide < 186 or MISSING
+AND sulphates >= 0.545 or MISSING
+AND pH < 3.535 or MISSING
+AND alcohol < 10.625 AND alcohol >= 9.85
+then 
+ Tree Node Identifier   = 72
+ Number of Observations = 319
+ Predicted: quality = 5.7836990596
+ 
+*------------------------------------------------------------*
+ Node = 73
+*------------------------------------------------------------*
+if volatile acidity >= 0.2425 or MISSING
+AND total sulfur dioxide >= 186
+AND sulphates >= 0.545 or MISSING
+AND pH < 3.535 or MISSING
+AND alcohol < 10.625 AND alcohol >= 9.85
+then 
+ Tree Node Identifier   = 73
+ Number of Observations = 33
+ Predicted: quality = 5.2424242424
+ 
+*------------------------------------------------------------*
+ Node = 74
+*------------------------------------------------------------*
+if volatile acidity < 0.365
+AND total sulfur dioxide < 36 or MISSING
+AND free sulfur dioxide < 11.5
+AND alcohol < 11.7417 AND alcohol >= 10.625 or MISSING
+then 
+ Tree Node Identifier   = 74
+ Number of Observations = 32
+ Predicted: quality = 6.59375
+ 
+*------------------------------------------------------------*
+ Node = 76
+*------------------------------------------------------------*
+if volatile acidity < 0.675 or MISSING
+AND total sulfur dioxide >= 36
+AND free sulfur dioxide < 11.5
+AND alcohol < 11.05 AND alcohol >= 10.625
+then 
+ Tree Node Identifier   = 76
+ Number of Observations = 34
+ Predicted: quality = 5.4411764706
+ 
+*------------------------------------------------------------*
+ Node = 77
+*------------------------------------------------------------*
+if volatile acidity < 0.675 or MISSING
+AND total sulfur dioxide >= 36
+AND free sulfur dioxide < 11.5
+AND alcohol < 11.7417 AND alcohol >= 11.05 or MISSING
+then 
+ Tree Node Identifier   = 77
+ Number of Observations = 35
+ Predicted: quality = 4.7142857143
+ 
+*------------------------------------------------------------*
+ Node = 78
+*------------------------------------------------------------*
+if volatile acidity < 0.195
+AND pH < 3.245
+AND free sulfur dioxide >= 11.5 or MISSING
+AND alcohol < 11.7417 AND alcohol >= 10.625 or MISSING
+then 
+ Tree Node Identifier   = 78
+ Number of Observations = 133
+ Predicted: quality = 6.3082706767
+ 
+*------------------------------------------------------------*
+ Node = 80
+*------------------------------------------------------------*
+if volatile acidity < 0.675 or MISSING
+AND pH >= 3.245 or MISSING
+AND free sulfur dioxide >= 11.5 or MISSING
+AND chlorides < 0.0395
+AND alcohol < 11.7417 AND alcohol >= 10.625 or MISSING
+then 
+ Tree Node Identifier   = 80
+ Number of Observations = 154
+ Predicted: quality = 6.5324675325
+ 
+*------------------------------------------------------------*
+ Node = 81
+*------------------------------------------------------------*
+if volatile acidity < 0.675 or MISSING
+AND pH >= 3.245 or MISSING
+AND free sulfur dioxide >= 11.5 or MISSING
+AND chlorides >= 0.0395 or MISSING
+AND alcohol < 11.7417 AND alcohol >= 10.625 or MISSING
+then 
+ Tree Node Identifier   = 81
+ Number of Observations = 231
+ Predicted: quality = 6.1038961039
+ 
+*------------------------------------------------------------*
+ Node = 82
+*------------------------------------------------------------*
+if sulphates < 0.335
+AND free sulfur dioxide < 21.5
+AND density < 0.99032
+AND alcohol >= 11.7417
+then 
+ Tree Node Identifier   = 82
+ Number of Observations = 8
+ Predicted: quality = 7.375
+ 
+*------------------------------------------------------------*
+ Node = 83
+*------------------------------------------------------------*
+if sulphates < 0.685 AND sulphates >= 0.335 or MISSING
+AND free sulfur dioxide < 21.5
+AND density < 0.99032
+AND alcohol >= 11.7417
+then 
+ Tree Node Identifier   = 83
+ Number of Observations = 68
+ Predicted: quality = 6.3970588235
+ 
+*------------------------------------------------------------*
+ Node = 84
+*------------------------------------------------------------*
+if sulphates < 0.475 or MISSING
+AND free sulfur dioxide >= 21.5 or MISSING
+AND fixed acidity < 5.35
+AND alcohol >= 11.7417
+then 
+ Tree Node Identifier   = 84
+ Number of Observations = 16
+ Predicted: quality = 7.25
+ 
+*------------------------------------------------------------*
+ Node = 86
+*------------------------------------------------------------*
+if volatile acidity < 0.2075 or MISSING
+AND free sulfur dioxide < 28.5 AND free sulfur dioxide >= 7.5
+AND density < 0.99791 or MISSING
+AND alcohol < 10.1167 or MISSING
+then 
+ Tree Node Identifier   = 86
+ Number of Observations = 104
+ Predicted: quality = 5.6057692308
+ 
+*------------------------------------------------------------*
+ Node = 87
+*------------------------------------------------------------*
+if volatile acidity < 0.2075 or MISSING
+AND free sulfur dioxide >= 28.5 or MISSING
+AND density < 0.99791 or MISSING
+AND alcohol < 10.1167 or MISSING
+then 
+ Tree Node Identifier   = 87
+ Number of Observations = 162
+ Predicted: quality = 5.9320987654
+ 
+*------------------------------------------------------------*
+ Node = 88
+*------------------------------------------------------------*
+if volatile acidity < 0.2075 or MISSING
+AND free sulfur dioxide < 44.5 or MISSING
+AND density >= 0.99791
+AND citric acid < 0.305 or MISSING
+AND alcohol < 9.15 or MISSING
+then 
+ Tree Node Identifier   = 88
+ Number of Observations = 27
+ Predicted: quality = 6.962962963
+ 
+*------------------------------------------------------------*
+ Node = 89
+*------------------------------------------------------------*
+if volatile acidity < 0.2075 or MISSING
+AND free sulfur dioxide >= 44.5
+AND density >= 0.99791
+AND citric acid < 0.305 or MISSING
+AND alcohol < 9.15 or MISSING
+then 
+ Tree Node Identifier   = 89
+ Number of Observations = 19
+ Predicted: quality = 7.6315789474
+ 
+*------------------------------------------------------------*
+ Node = 95
+*------------------------------------------------------------*
+if volatile acidity < 0.4225 AND volatile acidity >= 0.275 or MISSING
+AND fixed acidity >= 10.45
+AND citric acid >= 0.265 or MISSING
+AND alcohol < 9.85 or MISSING
+then 
+ Tree Node Identifier   = 95
+ Number of Observations = 21
+ Predicted: quality = 5.9047619048
+ 
+*------------------------------------------------------------*
+ Node = 96
+*------------------------------------------------------------*
+if volatile acidity < 0.675 AND volatile acidity >= 0.365 or MISSING
+AND total sulfur dioxide < 36 or MISSING
+AND free sulfur dioxide < 5.5
+AND alcohol < 11.7417 AND alcohol >= 10.625 or MISSING
+then 
+ Tree Node Identifier   = 96
+ Number of Observations = 22
+ Predicted: quality = 5.4090909091
+ 
+*------------------------------------------------------------*
+ Node = 97
+*------------------------------------------------------------*
+if volatile acidity < 0.675 AND volatile acidity >= 0.365 or MISSING
+AND total sulfur dioxide < 36 or MISSING
+AND free sulfur dioxide < 11.5 AND free sulfur dioxide >= 5.5 or MISSING
+AND alcohol < 11.7417 AND alcohol >= 10.625 or MISSING
+then 
+ Tree Node Identifier   = 97
+ Number of Observations = 40
+ Predicted: quality = 6.125
+ 
+*------------------------------------------------------------*
+ Node = 98
+*------------------------------------------------------------*
+if volatile acidity < 0.675 AND volatile acidity >= 0.195 or MISSING
+AND sulphates < 0.585
+AND pH < 3.245
+AND free sulfur dioxide >= 11.5 or MISSING
+AND alcohol < 11.7417 AND alcohol >= 10.625 or MISSING
+then 
+ Tree Node Identifier   = 98
+ Number of Observations = 359
+ Predicted: quality = 5.8941504178
+ 
+*------------------------------------------------------------*
+ Node = 99
+*------------------------------------------------------------*
+if volatile acidity < 0.675 AND volatile acidity >= 0.195 or MISSING
+AND sulphates >= 0.585 or MISSING
+AND pH < 3.245
+AND free sulfur dioxide >= 11.5 or MISSING
+AND alcohol < 11.7417 AND alcohol >= 10.625 or MISSING
+then 
+ Tree Node Identifier   = 99
+ Number of Observations = 78
+ Predicted: quality = 6.3205128205
+ 
+*------------------------------------------------------------*
+ Node = 100
+*------------------------------------------------------------*
+if sulphates < 0.475 or MISSING
+AND free sulfur dioxide >= 21.5 or MISSING
+AND fixed acidity < 7.85 AND fixed acidity >= 5.35 or MISSING
+AND citric acid < 0.235
+AND alcohol >= 11.7417
+then 
+ Tree Node Identifier   = 100
+ Number of Observations = 21
+ Predicted: quality = 5.9523809524
+ 
+*------------------------------------------------------------*
+ Node = 101
+*------------------------------------------------------------*
+if sulphates < 0.475 or MISSING
+AND free sulfur dioxide >= 21.5 or MISSING
+AND fixed acidity < 7.85 AND fixed acidity >= 5.35 or MISSING
+AND citric acid >= 0.235 or MISSING
+AND alcohol >= 11.7417
+then 
+ Tree Node Identifier   = 101
+ Number of Observations = 257
+ Predicted: quality = 6.5992217899
+ 
+*------------------------------------------------------------*
+ Node = 103
+*------------------------------------------------------------*
+if volatile acidity < 0.2375 AND volatile acidity >= 0.2175 or MISSING
+AND free sulfur dioxide >= 23.5 or MISSING
+AND fixed acidity >= 6.85
+AND alcohol < 9.56667 or MISSING
+then 
+ Tree Node Identifier   = 103
+ Number of Observations = 42
+ Predicted: quality = 6.1428571429
+ 
+*------------------------------------------------------------*
+ Node = 104
+*------------------------------------------------------------*
+if volatile acidity < 0.2425 AND volatile acidity >= 0.2375
+AND pH < 3.08
+AND free sulfur dioxide >= 23.5 or MISSING
+AND alcohol < 9.56667 or MISSING
+then 
+ Tree Node Identifier   = 104
+ Number of Observations = 21
+ Predicted: quality = 5.6666666667
+ 
+*------------------------------------------------------------*
+ Node = 105
+*------------------------------------------------------------*
+if volatile acidity < 0.2425 AND volatile acidity >= 0.2375
+AND pH >= 3.08 or MISSING
+AND free sulfur dioxide >= 23.5 or MISSING
+AND alcohol < 9.56667 or MISSING
+then 
+ Tree Node Identifier   = 105
+ Number of Observations = 35
+ Predicted: quality = 5.2
+ 
+*------------------------------------------------------------*
+ Node = 106
+*------------------------------------------------------------*
+if volatile acidity < 0.275 AND volatile acidity >= 0.2425
+AND density < 0.9984 or MISSING
+AND citric acid < 0.425 AND citric acid >= 0.265 or MISSING
+AND alcohol < 9.85 or MISSING
+then 
+ Tree Node Identifier   = 106
+ Number of Observations = 72
+ Predicted: quality = 5.6666666667
+ 
+*------------------------------------------------------------*
+ Node = 107
+*------------------------------------------------------------*
+if volatile acidity < 0.275 AND volatile acidity >= 0.2425
+AND density < 0.9984 or MISSING
+AND citric acid >= 0.425
+AND alcohol < 9.85 or MISSING
+then 
+ Tree Node Identifier   = 107
+ Number of Observations = 63
+ Predicted: quality = 5.2698412698
+ 
+*------------------------------------------------------------*
+ Node = 108
+*------------------------------------------------------------*
+if volatile acidity < 0.275 AND volatile acidity >= 0.2425
+AND density < 0.9988 AND density >= 0.9984
+AND citric acid >= 0.265 or MISSING
+AND alcohol < 9.85 or MISSING
+then 
+ Tree Node Identifier   = 108
+ Number of Observations = 17
+ Predicted: quality = 6.6470588235
+ 
+*------------------------------------------------------------*
+ Node = 109
+*------------------------------------------------------------*
+if volatile acidity < 0.275 AND volatile acidity >= 0.2425
+AND density >= 0.9988 or MISSING
+AND citric acid >= 0.265 or MISSING
+AND alcohol < 9.85 or MISSING
+then 
+ Tree Node Identifier   = 109
+ Number of Observations = 21
+ Predicted: quality = 5.5714285714
+ 
+*------------------------------------------------------------*
+ Node = 110
+*------------------------------------------------------------*
+if volatile acidity < 0.4225 AND volatile acidity >= 0.275 or MISSING
+AND fixed acidity < 10.45 or MISSING
+AND citric acid < 0.295 AND citric acid >= 0.265
+AND alcohol < 9.85 or MISSING
+then 
+ Tree Node Identifier   = 110
+ Number of Observations = 46
+ Predicted: quality = 5.6956521739
+ 
+*------------------------------------------------------------*
+ Node = 112
+*------------------------------------------------------------*
+if volatile acidity < 0.2375 AND volatile acidity >= 0.2175 or MISSING
+AND sulphates < 0.415
+AND free sulfur dioxide >= 23.5 or MISSING
+AND fixed acidity < 6.85 or MISSING
+AND alcohol < 9.56667 or MISSING
+then 
+ Tree Node Identifier   = 112
+ Number of Observations = 19
+ Predicted: quality = 5.3157894737
+ 
+*------------------------------------------------------------*
+ Node = 113
+*------------------------------------------------------------*
+if volatile acidity < 0.2375 AND volatile acidity >= 0.2175 or MISSING
+AND sulphates >= 0.415 or MISSING
+AND free sulfur dioxide >= 23.5 or MISSING
+AND fixed acidity < 6.85 or MISSING
+AND alcohol < 9.56667 or MISSING
+then 
+ Tree Node Identifier   = 113
+ Number of Observations = 48
+ Predicted: quality = 5.8333333333
+ 
+*------------------------------------------------------------*
+ Node = 114
+*------------------------------------------------------------*
+if volatile acidity < 0.4225 AND volatile acidity >= 0.275 or MISSING
+AND fixed acidity < 10.45 or MISSING
+AND citric acid >= 0.295 or MISSING
+AND chlorides < 0.033
+AND alcohol < 9.85 or MISSING
+then 
+ Tree Node Identifier   = 114
+ Number of Observations = 10
+ Predicted: quality = 6
+ 
+*------------------------------------------------------------*
+ Node = 115
+*------------------------------------------------------------*
+if volatile acidity < 0.4225 AND volatile acidity >= 0.275 or MISSING
+AND fixed acidity < 10.45 or MISSING
+AND citric acid >= 0.295 or MISSING
+AND chlorides >= 0.033 or MISSING
+AND alcohol < 9.85 or MISSING
+then 
+ Tree Node Identifier   = 115
+ Number of Observations = 346
+ Predicted: quality = 5.2630057803
+ 

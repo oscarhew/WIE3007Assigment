@@ -1,0 +1,36 @@
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+Score Input Variables
+
+                                                                                            Used in
+                                                                                Variable     Score
+Variable Name            Role     Creator    Comment    Label                    Hidden      Code
+
+TastingDate             INPUT                                                      N           Y   
+alcohol                 INPUT                                                      N           Y   
+category                INPUT                                                      N           Y   
+chlorides               INPUT                                                      N           Y   
+citric_acid             INPUT                           citric acid                N           Y   
+density                 INPUT                                                      N           Y   
+fixed_acidity           INPUT                           fixed acidity              N           Y   
+free_sulfur_dioxide     INPUT                           free sulfur dioxide        N           Y   
+pH                      INPUT                                                      N           Y   
+quality                 TARGET                                                     N           N   
+sulphates               INPUT                                                      N           Y   
+total_sulfur_dioxide    INPUT                           total sulfur dioxide       N           Y   
+volatile_acidity        INPUT                           volatile acidity           N           Y   
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+Score Output Variables
+
+Variable Name    Function     Creator    Label
+
+EM_PREDICTION    PREDICT       Score     Prediction for quality
+EM_SEGMENT       TRANSFORM     Score     Node                  
+P_quality        PREDICT       Tree      Predicted: quality    
+_NODE_           TRANSFORM     Tree      Node                  
+_WARN_           ASSESS        Tree      Warnings              

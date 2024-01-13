@@ -1,0 +1,69 @@
+*------------------------------------------------------------*
+* Score Log
+Date:                January 06, 2024
+Time:                00:17:48
+*------------------------------------------------------------*
+11050  *------------------------------------------------------------*;
+11051  * Meta: Scoring DATA data;
+11052  *------------------------------------------------------------*;
+11053  data EMWS2.Meta_TRAIN
+11054  / view=EMWS2.Meta_TRAIN
+11055  ;
+11056  set EMWS2.TSDP_TRAIN
+11057  ;
+11058  run;
+
+NOTE: DATA STEP view saved on file EMWS2.META_TRAIN.
+NOTE: A stored DATA STEP view cannot run under a different operating system.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+11059  quit;
+
+11060  *------------------------------------------------------------*;
+11061  * Meta: Computing metadata for TRAIN data;
+11062  *------------------------------------------------------------*;
+
+11063  data _TEMP;
+11064  set EMWS2.TSDP_CMeta_TRAIN;
+11065  *------------------------------------------------------------*;
+11066  * Metadata Changes;
+11067  *------------------------------------------------------------*;
+11068  if upcase(NAME) = "_TS_01" then ROLE="TARGET";
+11069  run;
+
+NOTE: There were 13 observations read from the data set EMWS2.TSDP_CMETA_TRAIN.
+NOTE: The data set WORK._TEMP has 13 observations and 20 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+11070  proc sort data=_TEMP;
+11071  by NAME;
+11072  run;
+
+NOTE: There were 13 observations read from the data set WORK._TEMP.
+NOTE: The data set WORK._TEMP has 13 observations and 20 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+11073  data EMWS2.Meta_CMeta_TRAIN;
+11074  set _TEMP;
+11075  run;
+
+NOTE: There were 13 observations read from the data set WORK._TEMP.
+NOTE: The data set EMWS2.META_CMETA_TRAIN has 13 observations and 20 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+NOTE: View EMWS2.META_TRAIN.VIEW used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.04 seconds
+      

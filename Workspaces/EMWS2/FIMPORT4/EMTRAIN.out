@@ -1,0 +1,72 @@
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+Variable Summary
+
+            Measurement    Frequency
+  Role         Level         Count
+
+CROSSID      NOMINAL            2   
+REJECTED     INTERVAL          16   
+REJECTED     NOMINAL            1   
+TARGET       INTERVAL           1   
+TIMEID       INTERVAL           1   
+ 
+                                                                                                                                                                                                                                                                
+ 
+ 
+
+The CONTENTS Procedure
+
+Data Set Name        EMWS2.FIMPORT4_DATA           Observations          6497
+Member Type          DATA                          Variables             21  
+Engine               V9                            Indexes               0   
+Created              01/06/2024 00:17:36           Observation Length    168 
+Last Modified        01/06/2024 00:17:36           Deleted Observations  0   
+Protection                                         Compressed            NO  
+Data Set Type                                      Sorted                NO  
+Label                                                                        
+Data Representation  WINDOWS_32                                              
+Encoding             wlatin1  Western (Windows)                              
+
+
+                                                                                Engine/Host Dependent Information
+
+Data Set Page Size          65536                                                                                                                                                                 
+Number of Data Set Pages    17                                                                                                                                                                    
+First Data Page             1                                                                                                                                                                     
+Max Obs per Page            389                                                                                                                                                                   
+Obs in First Data Page      369                                                                                                                                                                   
+Number of Data Set Repairs  0                                                                                                                                                                     
+ExtendObsCounter            YES                                                                                                                                                                   
+Filename                    C:\Users\Oscar\Documents\Document\File need to backup\UM\Y4S1\Data Mining and Warehousing\GroupAssignment\GroupAssignment_2023\Workspaces\EMWS2\fimport4_data.sas7bdat
+Release Created             9.0401M3                                                                                                                                                              
+Host Created                W32_8HOME                                                                                                                                                             
+
+
+                        Alphabetic List of Variables and Attributes
+ 
+ #    Variable                Type    Len    Format       Informat     Label
+
+11    Country                 Char      9    $9.          $9.                              
+12    Price                   Num       8    BEST12.      BEST32.                          
+14    ProduceDate             Num       8    MMDDYY10.    MMDDYY10.                        
+13    QuantitySold            Num       8    BEST12.      BEST32.                          
+21    Sequence_Tasting        Num       8                              Sequence Tasting    
+ 9    TasterName              Char      5    $5.          $5.                              
+10    TastingDate             Num       8    MMDDYY10.    MMDDYY10.                        
+ 6    alcohol                 Num       8    BEST12.      BEST32.                          
+ 8    category                Char      5    $5.          $5.                              
+ 2    chlorides               Num       8    BEST12.      BEST32.                          
+17    citric_acid             Num       8                              citric acid         
+ 3    density                 Num       8    BEST12.      BEST32.                          
+15    fixed_acidity           Num       8                              fixed acidity       
+19    free_sulfur_dioxide     Num       8                              free sulfur dioxide 
+ 1    index                   Num       8    BEST12.      BEST32.                          
+ 4    pH                      Num       8    BEST12.      BEST32.                          
+ 7    quality                 Num       8    BEST12.      BEST32.                          
+18    residual_sugar          Num       8                              residual sugar      
+ 5    sulphates               Num       8    BEST12.      BEST32.                          
+20    total_sulfur_dioxide    Num       8                              total sulfur dioxide
+16    volatile_acidity        Num       8                              volatile acidity    

@@ -1,0 +1,40 @@
+*------------------------------------------------------------*
+* Score Log
+Date:                January 06, 2024
+Time:                00:55:45
+*------------------------------------------------------------*
+11476  *------------------------------------------------------------*;
+11477  * Stat: Scoring DATA data;
+11478  *------------------------------------------------------------*;
+11479  data EMWS2.Stat_TRAIN
+11480  / view=EMWS2.Stat_TRAIN
+11481  ;
+11482  set EMWS2.FIMPORT_train
+11483  ;
+11484  run;
+
+NOTE: DATA STEP view saved on file EMWS2.STAT_TRAIN.
+NOTE: A stored DATA STEP view cannot run under a different operating system.
+NOTE: View EMWS2.FIMPORT_TRAIN.VIEW used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+NOTE: DATA statement used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+      
+
+11485  quit;
+
+11486  *------------------------------------------------------------*;
+11487  * Stat: Computing metadata for TRAIN data;
+11488  *------------------------------------------------------------*;
+
+NOTE: View EMWS2.STAT_TRAIN.VIEW used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.03 seconds
+      
+NOTE: View EMWS2.STAT_TRAIN.VIEW used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      

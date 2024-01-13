@@ -1,0 +1,89 @@
+*------------------------------------------------------------*
+User:                Oscar
+Date:                January 06, 2024
+Time:                00:56:10
+*------------------------------------------------------------*
+* Training Output
+*------------------------------------------------------------*
+ 
+ 
+ 
+ 
+Variable Summary
+ 
+          Measurement    Frequency
+ Role        Level         Count
+ 
+TARGET     INTERVAL          1
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fit Statistics
+Model Selection based on Train: Average Squared Error (_ASE_)
+ 
+                                                   Train:
+                                                  Average
+Selected    Model                                 Squared
+ Model      Node     Model Description             Error
+ 
+   Y        Tree     Decision Tree                0.45092
+            Tree2    Interactive Decision Tree    0.47251
+            Boost    Gradient Boosting            0.50910
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fit Statistics Table
+Target: quality
+ 
+Data Role=Train
+ 
+Statistics                                              Tree      Tree2      Boost
+ 
+Train: Average Squared Error                            0.45       0.47       0.51
+Selection Criterion: Train: Average Squared Error       0.45       0.47       0.51
+Train: Total Degrees of Freedom                      5198.00    5198.00    5198.00
+Train: Divisor for ASE                               5198.00    5198.00    5198.00
+Train: Maximum Absolute Error                           3.41       3.37       3.25
+Train: Sum of Frequencies                            5198.00    5198.00    5198.00
+Train: Root Average Squared Error                       0.67       0.69       0.71
+Train: Sum of Squared Errors                         2343.87    2456.10    2646.31
+Train: Sum of Case Weights Times Freq                    .          .      5198.00
+ 
+ 
+Data Role=Test
+ 
+           Statistics                  Tree      Tree2      Boost
+ 
+Test: Average Squared Error            0.52       0.53       0.50
+Test: Divisor for TASE              1299.00    1299.00    1299.00
+Test: Maximum Absolute Error           3.32       2.97       2.98
+Test: Sum of Frequencies            1299.00    1299.00    1299.00
+Test: Root Average Squared Error       0.72       0.73       0.71
+Test: Sum of Squared Errors          675.58     685.29     653.53
+Test: Sum of Weights Times Freqs    1299.00    1299.00    1299.00
+
+
+*------------------------------------------------------------*
+* Score Output
+*------------------------------------------------------------*
+
+
+*------------------------------------------------------------*
+* Report Output
+*------------------------------------------------------------*
